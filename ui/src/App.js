@@ -1,25 +1,29 @@
-import React, { useEffect, useState} from 'react';
+import TopBar from './components/layout/TopBar';
+import Landing from './components/pages/Landing';
+
+import { ColorModeThemeProvider } from './contexts/ThemeContext';
 import config from './config'
 
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import React, { useEffect} from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+const API_URL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function App() {
 
-  let [names, setNames] = useState([ ]);
 
   useEffect(() => {
-    fetch(ApiUrl + "/authors")
-      .then(response => response.json())
-      .then(data => setNames(data))
-      .catch(err => console.log(err))
+    console.log(API_URL);
   }, []);
 
 
   return (
-    <div>
-      App is running - good work :
-      { names.map(author => author.firstName + " ")}
-    </div>
+    <ColorModeThemeProvider>
+      <TopBar />
+      <Routes>
+        <Route exact path='/' element={<Landing />} />
+      </Routes>
+    </ColorModeThemeProvider>
   );
 }
 
