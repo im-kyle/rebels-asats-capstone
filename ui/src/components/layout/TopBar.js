@@ -30,14 +30,12 @@ const TopBar = function() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar id="back-to-top-anchor">
+        <Toolbar id="back-to-top-anchor" variant="dense">
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item>
               <Typography
               variant="overline"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontSize: 24}}
+              sx={{ flexGrow: 1, lineHeight: 2, display: { xs: 'none', sm: 'block', fontSize: 36 }}}
             >
               ASATS
             </Typography>
