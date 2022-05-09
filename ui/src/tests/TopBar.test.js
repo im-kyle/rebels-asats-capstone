@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import TopBar from '../components/layout/TopBar'
 import App from '../App';
@@ -48,12 +48,12 @@ describe("Top Bar", ()=>{
     expect(light).toBeInTheDocument();
   })
 
-  // it("renders the User Icon button", ()=>{
-  //   const topBar = render(<TopBar />)
-  //   const userIcon = topBar.getByLabelText("log in")
-  //   expect(userIcon).toBeInTheDocument();
+  it("renders the User Icon button", ()=>{
+    const topBar = render(<TopBar />)
+    const userIcon = topBar.getByLabelText("log in")
+    expect(userIcon).toBeInTheDocument();
     
-  // })
+  })
 
   
 })
