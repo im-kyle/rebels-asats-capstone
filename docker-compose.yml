@@ -39,9 +39,8 @@ services:
       - POSTGRES_DB=capstone
     volumes:
       - type: bind
-        source: ./api
-        target: /app
-    command: npm run start:dev
+        source: ./api/src
+        target: /app/src
 
   capstone-ui:
     build: ui/
