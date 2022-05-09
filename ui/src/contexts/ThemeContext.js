@@ -23,6 +23,14 @@ export function ColorModeThemeProvider({ children }) {
     palette: {
       mode,
     },
+    typography: {
+      overline: {
+        fontFamily: [
+          'Black Ops One',
+          'cursive',
+        ].join(','),
+      },
+    },
   }), [mode]);
 
   const colorMode = React.useMemo(() => (
