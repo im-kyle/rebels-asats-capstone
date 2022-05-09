@@ -1,5 +1,5 @@
 import { useColorMode } from '../../contexts/ThemeContext';
-import UserMenu from './UserMenu';
+// import UserMenu from './UserMenu';
 
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -37,7 +37,7 @@ const TopBar = function() {
               variant="overline"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontSize: 30}}
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontSize: 24}}
             >
               ASATS
             </Typography>
@@ -78,7 +78,7 @@ const TopBar = function() {
               </Button>
             </Grid>
             <Grid item >
-              <UserMenu />
+              {/* <UserMenu /> */}
               <Tooltip title={`set ${theme.palette.mode === 'dark' ? 'light' : 'dark'} mode`} arrow>
                 <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
                   {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
