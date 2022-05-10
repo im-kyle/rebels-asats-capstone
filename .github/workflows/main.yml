@@ -40,15 +40,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build Database
-        run: |
-          docker build -t capstone-db .
       - name: Build API
         run: |
           docker build -t capstone-api ./api
-      - name: Start Database
-        run: |
-          docker run -e CI=true capstone-db
       - name: Test API
         run: |
           docker run -e CI=true capstone-api npm run test
