@@ -1,29 +1,32 @@
 import TopBar from './components/layout/TopBar';
-import Landing from './components/pages/Landing';
+import Home from './components/pages/Home';
+import Dashboard from './components/pages/Dashboard';
+import Awards from './components/pages/Awards';
+import Packages from './components/pages/Packages';
 
+import { AuthProvider } from './contexts/AuthContext';
+import { ApiProvider } from './contexts/ApiContext';
 import { ColorModeThemeProvider } from './contexts/ThemeContext';
-import config from './config'
 
 import React, { useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-const API_URL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
 function App() {
 
-
-  useEffect(() => {
-    console.log(API_URL);
-  }, []);
-
-
   return (
-    <ColorModeThemeProvider>
-      <TopBar />
-      <Routes>
-        <Route exact path='/' element={<Landing />} />
-      </Routes>
-    </ColorModeThemeProvider>
+    <AuthProvider>
+      <ApiProvider>
+        <ColorModeThemeProvider>
+          <TopBar />
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/awards' element={<Awards />} />
+            <Route path='/packages' element={<Packages />} />
+          </Routes>
+        </ColorModeThemeProvider>
+      </ApiProvider>
+    </AuthProvider>
   );
 }
 
