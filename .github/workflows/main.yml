@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Database
         run: |
-          docker build -t capstone-db
+          docker build -t capstone-db .
       - name: Build API
         run: |
           docker build -t capstone-api ./api
