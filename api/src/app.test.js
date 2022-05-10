@@ -3,7 +3,7 @@ const config = require('../knexfile.js')[env]
 const knex = require('knex')(config)
 
 //beforeAll(() => console.log(config));
-if (process.env.NODE_ENV === 'test') {
+/* if (process.env.NODE_ENV === 'test') {
 
     afterAll(() => knex.destroy());
 
@@ -102,7 +102,7 @@ if (process.env.NODE_ENV === 'test') {
             });
         });
     })
-}
+} */
 
 
 
