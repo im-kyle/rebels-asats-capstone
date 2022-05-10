@@ -5,8 +5,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable('requirements', table => {
     table.increments('id');
-    table.string('sfscs_code');
-    table.foreign('sfscs_code').references('sfscs.code');
+    table.string('afscs_code');
+    table.foreign('afscs_code').references('afscs.code');
     table.string('rank_category', 25);
     table.string('demographic', 250);
   })
@@ -18,7 +18,7 @@ exports.up = function(knex) {
  */
  exports.down = function(knex) {
   return knex.schema.alterTable('requirements', table => {
-    table.dropForeign('sfscs_code')
+    table.dropForeign('afscs_code')
   })
   .then(function() {
     return knex.schema.dropTableIfExists('requirements');

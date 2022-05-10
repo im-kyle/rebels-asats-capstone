@@ -10,8 +10,8 @@
         table.string('last_name', 250);
         table.string('middle_initial', 5);
         table.string('rank_grade', 10);
-        table.integer('sfsc_id')
-        table.foreign('sfsc_id').references('sfscs.id');
+        table.integer('afsc_id')
+        table.foreign('afsc_id').references('afscs.id');
         table.string('duty_title', 128);
         table.string('majcom_foa_dru', 25);
         table.string('phone_dsn', 15);

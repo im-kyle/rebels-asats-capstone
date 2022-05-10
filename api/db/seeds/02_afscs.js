@@ -9,8 +9,8 @@ exports.seed = async function(knex) {
   await knex('users').del()
   await knex('awards').del()
   await knex('requirements').del()
-  await knex('sfscs').del()
-  await knex('sfscs').insert([
+  await knex('afscs').del()
+  await knex('afscs').insert([
     {code: '5C0X1-K', title: 'Cybersecurity Analyst'},
     {code: '5C0X1-C', title: 'Cyber Operations'},
     {code: '5C0X1-S', title: 'Systems Administrator'},
