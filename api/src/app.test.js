@@ -1,6 +1,6 @@
-const env = process.env.NODE_ENV || 'development'
-const config = require('../knexfile.js')[env]
-const knex = require('knex')(config)
+//const env = process.env.NODE_ENV || 'development'
+//const config = require('../knexfile.js')[env]
+//const knex = require('knex')(config)
 
 //beforeAll(() => console.log(config));
 /* if (process.env.NODE_ENV === 'test') {

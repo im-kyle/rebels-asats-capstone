@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const db = require('./dbConnection');
 const awardsRouter = require('./routes/awards');
 const requirementsRouter = require('./routes/requirements');
 const demographicsRouter = require('./routes/demographics');
@@ -24,10 +23,7 @@ app.use('/sfscs', sfscsRouter);
 app.use('/units', unitsRouter);
 
 app.get('/', (req, res) => {
-    db
-    .select('*')
-    .from('users')
-    .then(() => res.status(200).json('Hello'))
+    res.status(200).send('The server is functioning properly.');
 })
 
 module.exports = app;
