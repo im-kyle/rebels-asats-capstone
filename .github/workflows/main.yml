@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build DB
         run: |
-          docker run -p 5432:5432 --name rebels-asats-capstone-db-1 -e POSTGRES_PASSWORD=docker postgres
+          docker run -d -p 5432:5432 --name rebels-asats-capstone-db-1 -e POSTGRES_PASSWORD=docker postgres
   # This workflow kicks off the build and test for the UI
   build-and-test-ui:
     # Name of the build job
