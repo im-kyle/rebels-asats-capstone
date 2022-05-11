@@ -30,6 +30,10 @@ exports.down = function(knex) {
     table.dropForeign('cc_user_id')
   })
   .then(function() {
+    return knex.schema.alterTable('users', table => {
+      table.dropForeign('unit_id')
+  })})
+  .then(function() {
     return knex.schema.dropTableIfExists('units')
   })
 };

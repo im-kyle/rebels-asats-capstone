@@ -5,7 +5,10 @@
 exports.up = function(knex) {
     return knex.schema.createTable('demographics', table => {
         table.increments('id');
-        table.string('name', 250);
+        table.boolean('is_female').unique();
+        table.boolean('is_african_american').unique();
+        table.boolean('is_asian_pacific_american').unique();
+        table.boolean('is_hispanic').unique();
     })
 };
 
