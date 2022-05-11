@@ -46,6 +46,15 @@ jobs:
       - name: Test API
         run: |
           docker run -e CI=true capstone-api npm run test
+
+  build-db:
+    name: Build DB
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build DB
+        run: |
+          docker run -p 5432:5432 --name rebels-asats-capstone-db-1 -e POSTGRES_PASSWORD=docker postgres
   
   # This workflow kicks off the deployment to Heroku for the UI
   deploy-ui:
