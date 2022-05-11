@@ -17,16 +17,16 @@ const config = {
   test: {
     apiUrl: '',
     auth: (cb) => {
-      let result = cb;
+      let mockAuth = cb;
 
-      result = {
+      mockAuth = {
         uid: 'MPUrBAmJpWWjtsBlWa02h4cSI1H2',
         email: 'admin@mail.com',
         onAuthStateChanged: () => {},
         signInWithEmailAndPassword: () => {}
       };
 
-      return result;
+      return mockAuth;
     }
   }
 }

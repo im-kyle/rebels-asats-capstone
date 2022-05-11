@@ -19,6 +19,7 @@ import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import PropTypes from 'prop-types';
 
 const MenuButton = function({text, icon, cb}) {
 
@@ -37,6 +38,12 @@ const MenuButton = function({text, icon, cb}) {
     </Button>
   )
 }
+
+MenuButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
+  cb: PropTypes.func.isRequired,
+};
 
 const TopBar = function() {
   const theme = useTheme();

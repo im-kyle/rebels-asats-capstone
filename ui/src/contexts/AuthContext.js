@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
   }
 
   function login(email, password) {
+    console.log(auth);
     return auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -53,7 +54,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setFirebaseUser(user);
       setLoading(false);
-  })
+    })
 
     return unsubscribe;
   }, [])

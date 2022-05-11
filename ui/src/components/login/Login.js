@@ -26,6 +26,10 @@ const Login = () => {
   const [error, setError] = React.useState('');
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    return setError('');
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -38,6 +42,7 @@ const Login = () => {
         setError('');
         navigate('/my-posts');
       } catch (error) {
+        console.log(error)
         setError('Incorrect login credentials.');
       }
     },

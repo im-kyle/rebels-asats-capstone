@@ -18,6 +18,10 @@ const LoginOrSignup = function() {
     setValue(newValue);
   };
 
+  React.useEffect(() => {
+    return setValue(0);
+  }, []);
+
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -40,8 +44,8 @@ const LoginOrSignup = function() {
 
   TabPanel.propTypes = {
     children: PropTypes.node.isRequired,
-    value: PropTypes.node.isRequired,
-    index: PropTypes.node.isRequired,
+    value: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
   };
 
   return (

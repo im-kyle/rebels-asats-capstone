@@ -15,6 +15,7 @@ export function ApiProvider({ children }) {
   const value = {
     apiUrl,
     apiUser,
+    setApiUser,
   };
 
   return (

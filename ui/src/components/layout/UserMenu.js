@@ -52,11 +52,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const UserMenu = function() {
-  console.log("HERE")
   const { firebaseUser, logout } = useAuth();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const memUser = useRef();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -67,13 +66,14 @@ const UserMenu = function() {
     setAnchorElUser(null);
 
     console.log(event);
+    console.log(firebaseUser);
 
     if (setting === 'Logout') {
       logout();
     }
 
     if (setting === 'Edit Profile') {
-      //navigate('/edit-profile');
+      navigate('/edit-profile');
     }
   };
 
@@ -81,7 +81,17 @@ const UserMenu = function() {
     <Box sx={{ flexGrow: 0 }} tabIndex={-1}>
       <Tooltip title={firebaseUser ? 'view settings' : 'log in'} arrow>
         <IconButton onClick={handleOpenUserMenu}>
-          <Avatar src={"/broken-image.jpg"} sx={{ width: 24, height: 24 }} />
+          {firebaseUser ?
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              variant="dot"
+            >
+              <Avatar src={firebaseUser?.photoURL} sx={{ width: 24, height: 24 }} />
+            </StyledBadge>
+            :
+            <Avatar src={"/broken-image.jpg"} sx={{ width: 24, height: 24 }} />
+          }
         </IconButton>
       </Tooltip>
       <Menu
