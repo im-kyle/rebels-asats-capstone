@@ -6,10 +6,6 @@ import {
 
 import PropTypes from 'prop-types';
 
-ColorModeThemeProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 export function useColorMode() {
@@ -48,3 +44,7 @@ export function ColorModeThemeProvider({ children }) {
     </ColorModeContext.Provider>
   )
 }
+
+ColorModeThemeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

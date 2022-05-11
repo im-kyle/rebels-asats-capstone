@@ -3,13 +3,13 @@ import {
   Typography,
 } from '@mui/material';
 
-function Landing() {
+function Awards() {
 
   return (
     <Typography variant='h6'>
-      App is running - good work
+      Awards
     </Typography>
   )
 }
 
-export default Landing;
+export default Awards;
