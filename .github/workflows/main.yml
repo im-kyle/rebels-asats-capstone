@@ -14,6 +14,15 @@ on:
 
 # 'jobs' is the list of all the workflows that will kick off.
 jobs:
+  #This workflow kicks off the build for the DB
+  build-db:
+    name: Build DB
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build DB
+        run: |
+          docker run -p 5432:5432 --name rebels-asats-capstone-db-1 -e POSTGRES_PASSWORD=docker postgres
   # This workflow kicks off the build and test for the UI
   build-and-test-ui:
     # Name of the build job
@@ -37,6 +46,7 @@ jobs:
   # This workflow kicks off the build and test for the API
   build-and-test-api:
     name: Build and Test API
+    needs: build-db
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -47,14 +57,6 @@ jobs:
         run: |
           docker run -e CI=true capstone-api npm run test
 
-  build-db:
-    name: Build DB
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build DB
-        run: |
-          docker run -p 5432:5432 --name rebels-asats-capstone-db-1 -e POSTGRES_PASSWORD=docker postgres
   
   # This workflow kicks off the deployment to Heroku for the UI
   deploy-ui:
