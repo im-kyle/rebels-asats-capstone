@@ -6,7 +6,7 @@ import {
 function EditProfile() {
 
   return (
-    <Typography variant='h6'>
+    <Typography variant='h1'>
       Edit Profile
     </Typography>
   )

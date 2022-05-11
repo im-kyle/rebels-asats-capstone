@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = yup.object({
   email: yup
@@ -23,6 +24,7 @@ const validationSchema = yup.object({
 const Signup = () => {
   const { signup } = useAuth();
   const [error, setError] = React.useState('');
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -34,6 +36,7 @@ const Signup = () => {
       try {
         await signup(values.email, values.password);
         setError('')
+        navigate('edit-profile');
       } catch (error) {
         setError('Please use a different email.')
       }

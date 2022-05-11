@@ -3,13 +3,13 @@ import {
   Typography,
 } from '@mui/material';
 
-function Home() {
+function RankFilter() {
 
   return (
-    <Typography variant='h1'>
-      Home
+    <Typography variant='h6'>
+      Rank Filter
     </Typography>
   )
 }
 
-export default Home;
+export default RankFilter;

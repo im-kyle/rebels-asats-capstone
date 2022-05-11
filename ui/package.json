@@ -47,9 +47,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.2",
+    "cypress": "^9.6.1",
     "eslint": "^8.13.0",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-react": "^7.29.4",
+    "msw": "^0.39.2",
     "react-test-renderer": "^18.1.0"
   }
 }

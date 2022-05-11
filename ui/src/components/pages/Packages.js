@@ -6,7 +6,7 @@ import {
 function Packages() {
 
   return (
-    <Typography variant='h6'>
+    <Typography variant='h1'>
       Packages
     </Typography>
   )

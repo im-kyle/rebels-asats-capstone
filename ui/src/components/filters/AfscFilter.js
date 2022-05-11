@@ -3,13 +3,13 @@ import {
   Typography,
 } from '@mui/material';
 
-function Home() {
+function AfscFilter() {
 
   return (
-    <Typography variant='h1'>
-      Home
+    <Typography variant='h6'>
+      AFSC Filter
     </Typography>
   )
 }
 
-export default Home;
+export default AfscFilter;
