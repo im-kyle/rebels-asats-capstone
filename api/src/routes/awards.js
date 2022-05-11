@@ -4,7 +4,7 @@ const db = require('../dbConnection');
 
 router
   .get('/', (request, response) => {
-    db.select('*').from('awards')
+    db.from('awards').join("requirements", "requirements.id", "=", "awards.requirements_id").select('*')
       .then(data => {
         response.status(200).json(data);
       })
