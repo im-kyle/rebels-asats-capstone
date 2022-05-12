@@ -16,7 +16,7 @@ router
   .get('/:id', (request, response) => {
     db.select('*').from('users').where('id', '=', request.params.id)
       .then(data => {
-        response.status(200).json(data);
+        response.status(200).json(data[0]);
       })
       .catch(err => {
         console.log(err);
