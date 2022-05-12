@@ -15,6 +15,13 @@ exports.seed = async function(knex) {
     {code: '5C0X1-C', title: 'Cyber Operations'},
     {code: '5C0X1-S', title: 'Systems Administrator'},
     {code: '17S', title: 'Cyberspace Effects'},
-    {code: '17D', title: 'Cyberspace Operations'}
+    {code: '17D', title: 'Cyberspace Operations'},
+    
+    {code: '8B000', title: 'Military Training Instructor'},
+    {code: '8B100', title: 'Military Training Leader'},
+    {code: '8G000', title: 'Honor Guard'},
+    {code: '8F000', title: 'First Sergeant'},
+    {code: '9T200', title: 'Pre-Cadet'},
+    {code: '9T100', title: 'Officer Trainee'}
   ]);
 };
