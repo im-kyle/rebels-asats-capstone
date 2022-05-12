@@ -46,7 +46,7 @@ router
   .delete('/:id', (request, response) => {
     db('users').where('id', '=', request.params.id).delete('*')
     .then(data => {
-      response.status(200).json(data);
+      response.status(200).json(data[0]);
     })
     .catch(err => {
       console.log(err);
