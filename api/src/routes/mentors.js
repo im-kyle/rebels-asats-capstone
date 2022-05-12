@@ -16,7 +16,7 @@ router
   .post('/', (request, response) => {
     db.insert(request.body).into('users_mentors').returning('*')
       .then(data => {
-        response.status(201).json(data);
+        response.status(201).json(data[0]);
       })
       .catch(err => {
         console.log(err);
@@ -33,8 +33,8 @@ router
       throw err;
     });
   })
-  .delete('/:id', (request, response) => {
-    db('users_mentors').where('id', '=', request.params.id).delete('*')
+  .delete('/', (request, response) => {
+    db('users_mentors').where('user_id', '=', request.query.user).andWhere('mentor_id', '=', request.query.mentor).delete('*')
     .then(data => {
       response.status(200).json(data);
     })
