@@ -1,4 +1,4 @@
-<h2>AIR AND SPACE AWARDS TRACKER </h2>
+<h2>ASATS - AIR AND SPACE AWARDS TRACKER </h2>
 
 <h4>Team: Rebels</h4>
 
@@ -71,4 +71,10 @@ This application serves to address the current frustrations of Airmen and Guardi
 </ul>
 <p>Congrats! Your containers should be up and running</p>
 
+<h5>Usage</h5>
 
+<p>
+The goal of this project is to enact a change in the current/outdated awards application process. We all understand how important recognition is in the workplace, so let's make it easier to get recognized!
+</p>
+
+<h5>Licensing and Contributions</h5>
