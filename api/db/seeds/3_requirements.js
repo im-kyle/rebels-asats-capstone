@@ -8,7 +8,7 @@ exports.seed = async function(knex) {
   await knex('requirements').del()
   await knex('requirements').insert([
     //Rank Categories
-    {afscs_code: null, rank_category: 'Junior Enlisted', demographic_id: null},
+    {afscs_code: null, rank_category: 'JE', demographic_id: null},
     {afscs_code: null, rank_category: 'NCO', demographic_id: null},
     {afscs_code: null, rank_category: 'SNCO', demographic_id: null},
     {afscs_code: null, rank_category: 'CGO', demographic_id: null},

@@ -1,7 +1,7 @@
 import { auth } from '../firebase';
 
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 
 const AuthContext = React.createContext()
@@ -17,15 +17,17 @@ export function AuthProvider({ children }) {
   function signup(email, password) {
     return (
       auth.createUserWithEmailAndPassword(email, password)
-        // .then((res) => {
-        //   axios.post(`${process.env.REACT_APP_API_URL}/users`, {
-        //     fb_uid: res.user.uid
-        //   })
-        // })
+        .then((res) => {
+          axios.post(`${process.env.REACT_APP_API_URL}/users`, {
+            fb_uid: res.user.uid
+          })
+          console.log(res.user.uid);
+        })
     )
   }
 
   function login(email, password) {
+
     return auth.signInWithEmailAndPassword(email, password);
   }
 

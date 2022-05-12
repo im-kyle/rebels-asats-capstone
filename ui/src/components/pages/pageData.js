@@ -8,38 +8,38 @@ import UserInfoFilter from '../filters/UserInfoFilter';
 import MentorInfoFilter from '../filters/MentorInfoFilter';
 
 const pageData = {
-  '/': {
+  '': {
     hasSideBar: false,
     filters: [
-      <React.Fragment />,
+      <React.Fragment key={0}/>,
     ]
   },
-  '/dashboard': {
+  'dashboard': {
     hasSideBar: true,
     filters: [
-      <UserInfoFilter />,
-      <MentorInfoFilter />,
+      <UserInfoFilter key={0} />,
+      <MentorInfoFilter key={1} />,
     ]
   },
-  '/awards': {
+  'awards': {
     hasSideBar: true,
     filters: [
-      <RankFilter />,
-      <AfscFilter />,
-      <DemographicsFilter />
+      <RankFilter key={0} />,
+      <AfscFilter key={1} />,
+      <DemographicsFilter key={2} />
     ]
   },
-  '/packages': {
+  'packages': {
     hasSideBar: true,
     filters: [
-      <MyPackagesFilter/>,
-      <PackagesReviewFilter/>,
+      <MyPackagesFilter key={0}/>,
+      <PackagesReviewFilter key={1}/>,
     ]
   },
-  '/edit-profile': {
+  'edit-profile': {
     hasSideBar: false,
     filters: [
-      <React.Fragment />,
+      <React.Fragment key={0}/>,
     ]
   },
 }

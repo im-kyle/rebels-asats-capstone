@@ -56,7 +56,7 @@ const TopBar = function() {
   ]
   
   return (
-    <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, maxHeight: 75 }}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, maxHeight: 75 }}>
       <Toolbar id="back-to-top-anchor">
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>

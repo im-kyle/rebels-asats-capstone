@@ -11,6 +11,7 @@ const usersRouter = require('./routes/users');
 const sfscsRouter = require('./routes/sfscs');
 const unitsRouter = require('./routes/units');
 
+app.use(express.json())
 app.use(cors());
 app.use('/awards', awardsRouter);
 app.use('/requirements', requirementsRouter);

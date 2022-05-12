@@ -12,7 +12,11 @@ const Layout = function({ top, left, main, showSideBar }) {
         {showSideBar && left}
       </Box>
       {showSideBar ?
-        <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, float: "right"}}>
+        <Box component="main" sx={{ flexGrow: 1, 
+                                    p: 3, 
+                                    width: `calc(100% - ${drawerWidth}px)`, 
+                                    marginTop: "75px",
+                                    float: "right"}}>
           {main}
         </Box>
         :
