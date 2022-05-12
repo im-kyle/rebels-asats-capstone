@@ -26,7 +26,7 @@ router
   .post('/', (request, response) => {
     db.insert(request.body).into('users').returning('*')
       .then(data => {
-        response.status(201).json(data);
+        response.status(201).json(data[0]);
       })
       .catch(err => {
         console.log(err);
