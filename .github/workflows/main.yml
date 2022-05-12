@@ -14,48 +14,72 @@ on:
 
 # 'jobs' is the list of all the workflows that will kick off.
 jobs:
-  #This workflow kicks off the build for the DB
-  build-db:
-    name: Build DB
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build DB
-        run: |
-          docker run -d -p 5432:5432 --name pg-db --network=${{ job.container.network }} -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=postgres -e POSTGRES_DB=capstone postgres
-  # This workflow kicks off the build and test for the UI
-  build-and-test-ui:
-    # Name of the build job
-    name: Build and Test UI
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # `steps` are the actions that will execute on this job.
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      # Runs a single command using the runners shell to build the UI
-      - name: Build UI
-        run: |
-          docker build -t capstone-ui ./ui
-      # Runs a set of commands using the runners shell to test the UI
-      - name: Test UI
-        run: |
-          docker run -e CI=true capstone-ui npm run test
-          
-  # This workflow kicks off the build and test for the API
-  build-and-test-api:
-    name: Build and Test API
-    needs: build-db
+  build-and-test-the-stack:
+    name: Build and Test the Stack
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build API
-        run: |
-          docker build -t capstone-api ./api
-      - name: Test API
-        run: |
-          docker run --network=${{ job.container.network }} -e CI=true capstone-api npm run test
+      - name: Build the stack
+        run: docker-compose up -d
+      # - name: Test
+      #   run: docker run --network container:rebels-asats-capstone-capstone-db-1 appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+
+# !!!!!!!!!!!!!!!!!!!
+  # services:
+  # capstone-db:
+  #   image: postgres
+  #   restart: always
+  #   environment: 
+  #    - DATABASE_HOST=127.0.0.1
+  #    - POSTGRES_USER=postgres
+  #    - POSTGRES_PASSWORD=docker
+  #    - POSTGRES_PORT=5432
+  #    - POSTGRES_DB=capstone
+  #   ports:
+  #    - '5432:5432'
+  #   healthcheck:
+  #       test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #       interval: 5s
+  #       timeout: 5s
+  #       retries: 5
+  #   volumes:
+  #     - pgdatasource:/var/lib/postgresql/data
+  # !!!!!!!!!!!!!!!!
+  
+  # This workflow kicks off the build and test for the UI
+  # build-and-test-ui:
+  #   # Name of the build job
+  #   name: Build and Test UI
+  #   # The type of runner that the job will run on
+  #   runs-on: ubuntu-latest
+
+  #   # `steps` are the actions that will execute on this job.
+  #   steps:
+  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  #     - uses: actions/checkout@v3
+  #     # Runs a single command using the runners shell to build the UI
+  #     - name: Build UI
+  #       run: |
+  #         docker build -t capstone-ui ./ui
+  #     # Runs a set of commands using the runners shell to test the UI
+  #     - name: Test UI
+  #       run: |
+  #         docker run -e CI=true capstone-ui npm run test
+          
+  # # This workflow kicks off the build and test for the API
+  # build-and-test-api:
+  #   name: Build and Test API
+  #   needs: build-db
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Build API
+  #       run: |
+  #         docker build -t capstone-api ./api
+  #     - name: Test API
+  #       run: |
+  #         docker run -e CI=true capstone-api npm run test
 
   
   # This workflow kicks off the deployment to Heroku for the UI
