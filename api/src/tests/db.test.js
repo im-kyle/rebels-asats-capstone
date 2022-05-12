@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV || 'development'
 const config = require('../../knexfile')[env]
 const knex = require('knex')(config)
 
+
 beforeAll(() => console.log(config));
 afterAll(() => knex.destroy());
 
@@ -13,7 +14,7 @@ describe('Database Structure:', () => {
         });
     });
     test('Should have an SFSC table.', async () => {
-        await knex.schema.hasTable('sfscs')
+        await knex.schema.hasTable('afscs')
         .then(result => {
             expect(result).toBe(true);
         });
@@ -58,9 +59,9 @@ describe('Database Structure:', () => {
 
 describe('Database Seeding', () => {
     test('Demographics should be seeded.', async () => {
-        await knex.select('*').from('demographics').where('name', '=', 'Gender')
+        await knex.select('*').from('demographics').where('is_female', '=', 'true')
         .then(result => {
-            expect(result[0].name).toBe('Gender');
+            expect(result[0].is_female).toBe(true);
         });
     });
     test('Units should be seeded.', async () => {
@@ -70,19 +71,19 @@ describe('Database Seeding', () => {
         });
     });
     test('Requirements should be seeded.', async () => {
-        await knex.select('*').from('requirements').where('sfscs_code', '=', '17S')
+        await knex.select('*').from('requirements').where('afscs_code', '=', '8B100')
         .then(result => {
-            expect(result[0].rank_category).toBe('CGO');
+            expect(result[0].afscs_code).toBe('8B100');
         });
     });
     test('Awards should be seeded.', async () => {
-        await knex.select('*').from('awards').where('title', '=', 'Junior Enlisted - Guardian of the Quarter')
+        await knex.select('*').from('awards').where('title', '=', 'Junior Enlisted - Airman/Guardian of the Quarter')
         .then(result => {
             expect(result[0].requirements_id).toBe(1);
         });
     });
     test('SFSCs should be seeded.', async () => {
-        await knex.select('*').from('sfscs').where('code', '=', '5C0X1-K')
+        await knex.select('*').from('afscs').where('code', '=', '5C0X1-K')
         .then(result => {
             expect(result[0].title).toBe('Cybersecurity Analyst');
         });
