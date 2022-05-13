@@ -20,7 +20,7 @@ const Layout = function({ top, left, main, showSideBar }) {
           {main}
         </Box>
         :
-        <Box component="main" sx={{ flexGrow: 1, p: 3}}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "75px"}}>
           {main}
         </Box>
       }

@@ -1,4 +1,5 @@
 import { auth } from '../firebase';
+import config from '../config';
 
 import React from 'react';
 import axios from 'axios';
@@ -11,23 +12,28 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const apiUrl = config[process.env.NODE_ENV || "development"].apiUrl;
   const [firebaseUser, setFirebaseUser] = React.useState();
   const [loading, setLoading] = React.useState(true);
+  const [apiPosted, setApiPosted] = React.useState(true);
 
   function signup(email, password) {
+    setApiPosted(false);
+
     return (
       auth.createUserWithEmailAndPassword(email, password)
         .then((res) => {
-          axios.post(`${process.env.REACT_APP_API_URL}/users`, {
+          axios.post(`${apiUrl}/users`, {
             fb_uid: res.user.uid
           })
-          console.log(res.user.uid);
+          .then(() =>{
+            setApiPosted(true);
         })
+      })
     )
   }
 
   function login(email, password) {
-
     return auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -65,6 +71,7 @@ export function AuthProvider({ children }) {
     login,
     signup,
     logout,
+    apiPosted,
     // resetPassword,
     // updateEmail,
     // updatePassword,

@@ -4,7 +4,7 @@ const db = require('../dbConnection');
 
 router
   .get('/', (request, response) => {
-    db.select('*').from('sfscs')
+    db.select('*').from('afscs')
       .then(data => {
         response.status(200).json(data);
       })
@@ -14,7 +14,7 @@ router
       });
   })
   .post('/', (request, response) => {
-    db.insert(request.body).into('sfscs').returning('*')
+    db.insert(request.body).into('afscs').returning('*')
       .then(data => {
         response.status(201).json(data);
       })
@@ -23,8 +23,18 @@ router
         throw err;
       });
   })
+  .get('/:id', (request, response) => {
+    db.select('*').from('afscs').where('id', '=', request.params.id).returning('*')
+      .then(data => {
+        response.status(200).json(data);
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  })
   .patch('/:id', (request, response) => {
-    db('sfscs').update(request.body).where('id', '=', request.params.id).returning('*')
+    db('afscs').update(request.body).where('id', '=', request.params.id).returning('*')
     .then(data => {
       response.status(201).json(data);
     })
@@ -34,7 +44,7 @@ router
     });
   })
   .delete('/:id', (request, response) => {
-    db('sfscs').where('id', '=', request.params.id).delete('*')
+    db('afscs').where('id', '=', request.params.id).delete('*')
     .then(data => {
       response.status(200).json(data);
     })

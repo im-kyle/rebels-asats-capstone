@@ -11,6 +11,31 @@ import {
   Typography,
 } from '@mui/material';
 
+function TabPanel({ children, value, index, ...other }) {
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box>
+          <Typography component={'span'}>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  )
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node.isRequired,
+  value: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+};
+
 const LoginOrSignup = function() {
   const [value, setValue] = React.useState(0);
 
@@ -21,32 +46,6 @@ const LoginOrSignup = function() {
   React.useEffect(() => {
     return setValue(0);
   }, []);
-
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box>
-            <Typography component={'span'}>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    )
-  }
-
-  TabPanel.propTypes = {
-    children: PropTypes.node.isRequired,
-    value: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-  };
 
   return (
     <div className='signin_signup'>

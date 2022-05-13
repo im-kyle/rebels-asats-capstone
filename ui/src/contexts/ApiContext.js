@@ -12,23 +12,43 @@ export function useApi() {
 
 export function ApiProvider({ children }) {
   const apiUrl = config[process.env.NODE_ENV || "development"].apiUrl;
-  const { firebaseUser } = useAuth();
+  const { firebaseUser, apiPosted } = useAuth();
   const [apiUser, setApiUser] = React.useState(null);
   const [allAwards, setAllAwards] = React.useState([]);
   const [filteredAwards, setFilteredAwards] = React.useState([]);
-  const [userPackages, setUserPackages] = React.useState([]);
+  const [packages, setPackages] = React.useState([]);
+  const [afscs, setAfscs] = React.useState([]);
+  const [units, setUnits] = React.useState([]);
+  const [demographics, setDemographics] = React.useState([]);
+  const [mentors, setMentors] = React.useState([]);
 
   useEffect(()=>{
-    if(firebaseUser !== null){
+    if(firebaseUser !== null && apiPosted){
       axios.get(`${apiUrl}/users?fb_uid=${firebaseUser.uid}`)
       .then(data =>{
         setApiUser(data.data[0])
       })
     }
-  },[firebaseUser])
+  }, [firebaseUser, apiPosted])
 
-  function getUserPackages(){
-    axios.get(`${apiUrl}/users/${apiUser.id}`)
+  useEffect(()=>{
+    if(apiUser !== null){
+      getPackages();
+    }
+  },[apiUser])
+
+  function getAfscs() {
+    return axios.get(`${apiUrl}/afscs`)
+      .then((data)=>{
+        setAfscs(data.data)
+      })
+  }
+
+  function getPackages() {
+    axios.get(`${apiUrl}/packages/${apiUser.id}`)
+    .then((data)=>{
+      setPackages(data.data)
+    })
   }
   
   function getAwards() {
@@ -37,6 +57,29 @@ export function ApiProvider({ children }) {
         setAllAwards(data.data)
         setFilteredAwards(data.data)
       })
+  }
+
+  function getUnits(){
+    axios.get(`${apiUrl}/units`)
+    .then((data)=>{
+      setUnits(data.data)
+    })
+  }
+
+  function getDemographics() {
+    axios.get(`${apiUrl}/demographics`)
+    .then((data) =>{
+      console.log('demographics data:', data.data);
+      setDemographics(data.data)
+    })
+  }
+
+  function getMentors() {
+    axios.get(`${apiUrl}/users/mentors`)
+    .then((data) =>{
+      console.log('mentors data:', data.data)
+      setMentors(data.data);
+    })
   }
 
   function filterAwards(filter) {
@@ -62,6 +105,16 @@ export function ApiProvider({ children }) {
     getAwards,
     filteredAwards,
     filterAwards,
+    packages,
+    getPackages,
+    afscs,
+    getAfscs,
+    units,
+    getUnits,
+    demographics,
+    getDemographics,
+    mentors,
+    getMentors
   };
 
   return (

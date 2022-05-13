@@ -33,8 +33,8 @@ function App() {
       <Route exact path='/' element={<Home />} />
       <Route path='/dashboard' element={<ProtectedRoute user={firebaseUser}><Dashboard /></ProtectedRoute>} />
       <Route path='/awards/*' element={<Awards />} />
-      <Route path='/packages' element={<ProtectedRoute user={firebaseUser}><Packages /></ProtectedRoute>} />
-      <Route path='/edit-profile' element={<EditProfile />} />
+      <Route path='/packages/*' element={<ProtectedRoute user={firebaseUser}><Packages /></ProtectedRoute>} />
+      <Route path='/edit-profile' element={<ProtectedRoute user={firebaseUser}><EditProfile /></ProtectedRoute>}/>
     </Routes>
   )
 
@@ -61,8 +61,8 @@ const ProtectedRoute = ({ user, children }) => {
 };
 
 ProtectedRoute.propTypes = {
-  user: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
+  user: PropTypes.object,
+  children: PropTypes.node,
 };
 
 export default App;

@@ -13,6 +13,16 @@ router
         throw err;
       });
   })
+  .get('/:id', (request, response) => {
+    db.select('*').from('units').where('id', '=', request.params.id)
+      .then(data => {
+        response.status(200).json(data);
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  })
   .post('/', (request, response) => {
     db.insert(request.body).into('units').returning('*')
       .then(data => {
