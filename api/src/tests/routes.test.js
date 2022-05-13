@@ -34,6 +34,9 @@ const exampleAward = {
 };
 let exampleAwardResponse = null;
 const exampleAwardTitle = 'Annual Influential Leading Women in STEM';
+const exampleRequirement = {
+
+};
 
 /* Template:
 
@@ -237,4 +240,31 @@ describe("Awards Route", () => {
       done();
     })
   });
-})
+});
+
+describe("Fetching Requirements/Demographics", () => {
+  test("Retrieves all requirements.", (done) => {
+    request(testApp)
+    .get('/requirements')
+    .expect(response => {
+      expect(response.body[0].id).toBe(1);
+      expect(response.body[14].id).toBe(15);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+  test("Retrieves all demographics.", (done) => {
+    request(testApp)
+    .get('/demographics')
+    .expect(response => {
+      expect(response.body[3].id).toBe(4);
+      expect(response.body[3].is_female).toBe(true);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+});
