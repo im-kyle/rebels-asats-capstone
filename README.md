@@ -36,6 +36,8 @@ We're glad you asked! The product is an awards tracking system designed for Air 
         </ul>
 </ul>
 
+************************************************
+
 <h5>Project Details</h5>
 
 <h6>Product Description</h6>
@@ -58,6 +60,8 @@ This application serves to address the current frustrations of Airmen and Guardi
     <li>SuperTest</li>
 </ul>
 
+************************************************
+
 <h5>Installation</h5>
 <ul>
     <li>clone this repository to your local machine</li>
@@ -71,10 +75,28 @@ This application serves to address the current frustrations of Airmen and Guardi
 </ul>
 <p>Congrats! Your containers should be up and running</p>
 
-<h5>Usage</h5>
+************************************************
 
+<h5>Usage</h5>
 <p>
 The goal of this project is to enact a change in the current/outdated awards application process. We all understand how important recognition is in the workplace, so let's make it easier to get recognized!
 </p>
 
+************************************************
+
 <h5>Licensing and Contributions</h5>
+<p>
+Copyright (c)   | 2022 |  GitHub: im-kyle, chrlfsher, acgorospe, nathansjohnston
+
+Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+</p>
