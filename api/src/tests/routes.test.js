@@ -27,6 +27,13 @@ const exampleMentorDataUpdate = {
   user_id: 4,
   mentor_id: 2
 };
+const exampleAward = {
+  title: 'Annual Influential Women in STEM',
+  description: 'An award presented annually to recognize women in STEM who are making waves with their innovations and accomplishments, both in their workplaces and in their communities.',
+  requirements_id: 9
+};
+let exampleAwardResponse = null;
+const exampleAwardTitle = 'Annual Influential Leading Women in STEM';
 
 /* Template:
 
@@ -53,7 +60,7 @@ test('GETs Root Route', (done) => {
       if (err) throw err;
       done();
     })
-})
+});
 
 describe("Users Route:", () => {
   test("GETs all users.", (done) => {
@@ -172,6 +179,58 @@ describe("User Mentorship Routes:", () => {
     .expect(response => {
       expect(response.body.user_id).toBe(4);
       expect(response.body.mentor_id).toBe(2);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+});
+
+describe("Awards Route", () => {
+  test("Retrieves all awards and requirements.", (done) => {
+    request(testApp)
+      .get('/awards')
+      .expect(response => {
+        expect(response.body[0].id).toBe(1);
+        expect(response.body[0].requirements_id).toBe(1);
+//        expect(response.body.length).toBe(22);
+      })
+      .end((err, res) => {
+        if (err) throw err;
+        done();
+      })
+  });
+  test("Adds a new award.", (done) => {
+    request(testApp)
+    .post('/awards')
+    .send(exampleAward)
+    .expect(response => {
+      exampleAwardResponse = response.body;
+      expect(response.body.title).toBe('Annual Influential Women in STEM')
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+  test("Alters an existing award.", (done) => {
+    request(testApp)
+    .patch(`/awards/${exampleAwardResponse.id}`)
+    .send({title: exampleAwardTitle})
+    .expect(response => {
+      expect(response.body.title).toBe(exampleAwardTitle);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+  test("Removes an award.", (done) => {
+    request(testApp)
+    .delete(`/awards/${exampleAwardResponse.id}`)
+    .expect(response => {
+      expect(response.body.id).toBe(exampleAwardResponse.id)
     })
     .end((err, res) => {
       if (err) throw err;
