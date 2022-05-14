@@ -12,26 +12,41 @@ import {
 } from '@mui/material';
 
 const rankTiers = [
+  {short: 'CIV1', long: 'Civilian (Category I)'},
+  {short: 'CIV2', long: 'Civilian (Category II)'},
+  {short: 'CIV3', long: 'Civilian (Category III)'},
+  {short: 'CDT', long: 'Cadet'},
   {short: 'JE', long: 'Junior Enlisted'},
   {short: 'NCO', long: 'Non-commissioned Officer'},
   {short: 'SNCO', long: 'Senior Non-commissioned Officer'},
   {short: 'CGO', long: 'Company Grade Officer'},
   {short: 'FGO', long: 'Field Grade Officer'},
 ]
-const displayRank = (tier) => `${tier.long} (${tier.short})`
 
 function RankFilter() {
-  const { filterAwards } = useApi();
+  const { filterAwards, apiUser } = useApi();
   const [selected, setSelected] = React.useState({
-    JE: true,
+    CIV1: false,
+    CIV2: false,
+    CIV3: false,
+    CDT: false,
+    JE: false,
     NCO: false,
     SNCO: false,
     CGO: false,
     FGO: false,
   });
 
-  const { JE, NCO, SNCO, CGO, FGO } = selected;
-  const error = [JE, NCO, SNCO, CGO, FGO].filter((v) => v).length < 1;
+  const { CIV1, CIV2, CIV3, CDT, JE, NCO, SNCO, CGO, FGO } = selected;
+  const error = [CIV1, CIV2, CIV3,  CDT, JE, NCO, SNCO, CGO, FGO].filter((v) => v).length < 1;
+
+  React.useEffect(() => {
+    if (apiUser) {
+      const userRank = {};
+      userRank[apiUser.rank_category] = true;
+      setSelected({ ...selected, ...userRank });
+    }
+  }, [apiUser])
 
   React.useEffect(() => {
     filterAwards({rankFilter: selected})
@@ -49,17 +64,17 @@ function RankFilter() {
         component="fieldset"
         variant="standard"
       >
-        <FormLabel component="legend">Rank Tier</FormLabel>
+        <FormLabel component="legend">Filter by Rank</FormLabel>
         <FormGroup>
           {rankTiers.map((tier, i) => (
             <FormControlLabel
               key={i}
               control={
-                <Checkbox 
+                <Checkbox
                   id={tier.short}
                   checked={selected[tier.short]}
-                  onChange={handleChange} 
-                  name={displayRank(tier)} />
+                  onChange={handleChange}
+                  name={`${tier.long} (${tier.short})`} />
               }
               label={tier.long}
             />

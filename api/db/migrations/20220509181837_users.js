@@ -8,8 +8,9 @@
         table.string('fb_uid');
         table.string('first_name', 250);
         table.string('last_name', 250);
-        table.string('middle_initial', 5);
+        table.string('middle_initial', 1);
         table.string('rank_grade', 10);
+        table.string('rank_category', 4);
         table.integer('afsc_id')
         table.foreign('afsc_id').references('afscs.id');
         table.string('duty_title', 128);

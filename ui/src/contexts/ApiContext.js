@@ -16,6 +16,7 @@ export function ApiProvider({ children }) {
   const [apiUser, setApiUser] = React.useState(null);
   const [allAwards, setAllAwards] = React.useState([]);
   const [filteredAwards, setFilteredAwards] = React.useState([]);
+  const prevFilteredAwards = React.useRef();
   const [packages, setPackages] = React.useState([]);
   const [afscs, setAfscs] = React.useState([]);
   const [units, setUnits] = React.useState([]);
@@ -50,7 +51,7 @@ export function ApiProvider({ children }) {
       setPackages(data.data)
     })
   }
-  
+
   function getAwards() {
     axios.get(`${apiUrl}/awards`)
       .then((data)=>{
@@ -69,7 +70,7 @@ export function ApiProvider({ children }) {
   function getDemographics() {
     axios.get(`${apiUrl}/demographics`)
     .then((data) =>{
-      console.log('demographics data:', data.data);
+      // console.log('demographics data:', data.data);
       setDemographics(data.data)
     })
   }
@@ -82,19 +83,24 @@ export function ApiProvider({ children }) {
     })
   }
 
-  function filterAwards(filter) {
-    const { rankFilter } = filter;
+  function filterAwards({ rankFilter, afscFilter }) {
+    console.log(afscFilter);
 
-    setFilteredAwards(
-      allAwards.filter(award => {
-        for (const tier in rankFilter) {
-          if (!rankFilter[tier]) continue;
-          if (award.rank_category === tier || award.rank_category === null) return true;
-        }
-  
-        return false;
-      })
-    )
+    if (rankFilter) {
+      setFilteredAwards(
+        allAwards.filter(award => {
+          console.log(award);
+          for (const tier in rankFilter) {
+            if (!rankFilter[tier]) continue;
+            if (award.rank_category === tier || award.rank_category === null) return true;
+          }
+
+          return false;
+        })
+      )
+    }
+
+
   }
 
   const value = {

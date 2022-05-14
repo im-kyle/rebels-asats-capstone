@@ -23,7 +23,7 @@ const SideBar = function({ drawerWidth, filters}) {
       <Box sx={{ overflow: 'auto' }}>
         {filters?.map((filter, i) => (
           <React.Fragment key={i}>
-            <Divider />
+            {i !== 0 && <Divider />}
             {filter}
           </React.Fragment>
           ))

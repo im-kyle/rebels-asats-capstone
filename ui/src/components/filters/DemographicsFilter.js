@@ -13,11 +13,11 @@ function DemographicsFilter() {
   const { demographics, getDemographics } = useApi();
   const [ options, setOptions ] = useState(['']);
 
-  
+
   React.useEffect(() => {
     getDemographics();
   }, [])
-  
+
   let optionsArray = [];
 
   React.useEffect(() => {
@@ -27,7 +27,7 @@ function DemographicsFilter() {
 
   React.useEffect(() => {
       optionsArray.map((option) => {
-      console.log('original option', option);
+      // console.log('original option', option);
       if(option[0] === '1') {
         option[0] = 'Hispanic'
       }
@@ -42,7 +42,7 @@ function DemographicsFilter() {
       }
       return optionsArray;
     })
-    optionsArray.forEach((option) => console.log('converted:', option))
+    // optionsArray.forEach((option) => console.log('converted:', option))
   }, [optionsArray])
 
   return (
@@ -62,7 +62,7 @@ function DemographicsFilter() {
       </React.Fragment>
   )
 };
-  
+
 
 
 export default DemographicsFilter;

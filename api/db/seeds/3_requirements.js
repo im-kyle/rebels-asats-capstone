@@ -1,6 +1,6 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
@@ -21,9 +21,9 @@ exports.seed = async function(knex) {
     //AFSCS
     {afscs_code: '8B000', rank_category: null, demographic_id: null},
     {afscs_code: '8B100', rank_category: null, demographic_id: null},
-    {afscs_code: '8F000', rank_category: null, demographic_id: null},
+    {afscs_code: '8F000', rank_category: 'SNCO', demographic_id: null},
     {afscs_code: '8G000', rank_category: null, demographic_id: null},
-    {afscs_code: '9T200', rank_category: null, demographic_id: null},
+    {afscs_code: '9T200', rank_category: 'CDT', demographic_id: null},
     {afscs_code: '9T100', rank_category: null, demographic_id: null}
   ]);
 };
