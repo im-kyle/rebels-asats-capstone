@@ -1,7 +1,6 @@
 import React from 'react';
 import RankFilter from '../filters/RankFilter';
 import AfscFilter from '../filters/AfscFilter';
-import DemographicsFilter from '../filters/DemographicsFilter';
 import MyPackagesFilter from '../filters/MyPackagesFilter';
 import PackagesReviewFilter from '../filters/PackagesReviewFilter';
 import UserInfoFilter from '../filters/UserInfoFilter';
@@ -26,7 +25,7 @@ const pageData = {
     filters: [
       <RankFilter key={0} />,
       <AfscFilter key={1} />,
-      <DemographicsFilter key={2} />
+      // <DemographicsFilter key={2} />
     ]
   },
   'packages': {

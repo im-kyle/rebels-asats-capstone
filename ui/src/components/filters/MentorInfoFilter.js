@@ -1,15 +1,31 @@
 import React from 'react';
-import {
-  Typography,
-} from '@mui/material';
+//import axios from 'axios';
+import { useApi } from '../../contexts/ApiContext';
+import { Box } from '@mui/material';
 
-function MentorInfoFilter() {
+function MentorsFilter() {
+  const { apiUser, mentors, getMentors } = useApi();
+  // const [ options, setOptions ] = React.useState(['']);
+  // const [ mentorshipInfo, setMentorshipInfo] = React.useState(
+  //   {
+  //     mentors: [],
+  //     mentees: []
+  //   }
+  // );
 
-  return (
-    <Typography variant='h6'>
-      Mentor Info Filter
-    </Typography>
+  
+  React.useEffect(() => {
+    getMentors(apiUser.id);
+    console.log(mentors);
+  }, [])
+
+  return(
+    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <h3>Mentorship:</h3>
+      <h4>Mentors:</h4>
+      <h4>Mentees:</h4>
+    </Box>
   )
 }
 
-export default MentorInfoFilter;
+export default MentorsFilter;

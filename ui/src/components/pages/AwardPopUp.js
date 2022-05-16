@@ -8,11 +8,12 @@ import {
 } from '@mui/material';
 import { useApi } from '../../contexts/ApiContext';
 import { useAuth } from '../../contexts/AuthContext';
+import axios from 'axios';
 
 function AwardPopUp() {
   const navigate = useNavigate()
   const {firebaseUser} = useAuth()
-  const {allAwards, apiUser} = useApi();
+  const {allAwards, apiUser, apiUrl} = useApi();
   const [award, setAward] = useState({})
   const location = useLocation();
   const awardTitle = location.pathname.split("/")[2].replaceAll("%20"," ").replaceAll("%2F","/")
@@ -50,7 +51,15 @@ function AwardPopUp() {
   }, [allAwards])
 
   const handlePackageCreation = ()=>{
-
+    console.log("here")
+    axios.post(`${apiUrl}/packages`, {user_id: apiUser.id, 
+      award_id: award.id, 
+      award_text: '', 
+      is_completed: false})
+      .then(data=>{
+        console.log(data)
+        navigate(`/packages/${data.data[0].id}`)
+      })
   }
 
   return (
@@ -59,7 +68,7 @@ function AwardPopUp() {
       <Box sx={style}>
         <Typography variant='h4'>{award?.title}</Typography>
         <Typography variant='body'>{award?.description}</Typography><br/>
-        {firebaseUser !== null && <Button onClick={()=>{handlePackageCreation}}>Create Package</Button>}
+        {firebaseUser !== null && <Button onClick={()=>{handlePackageCreation()}}>Create Package</Button>}
       </Box>
     </Modal>
   )

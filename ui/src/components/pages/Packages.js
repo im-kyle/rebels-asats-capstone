@@ -8,17 +8,22 @@ import {
   Typography,
 } from '@mui/material';
 import { useApi } from '../../contexts/ApiContext';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import PackageEdit from './PackageEdit';
+import {useNavigate } from 'react-router-dom';
 
 function Packages() {
 
-  const {packages, getPackages} = useApi();
+  const {packages, getPackages, apiUser} = useApi();
   const navigate = useNavigate()
 
-  // useEffect(()=>{
-  //   getPackages()
-  // },[])
+  useEffect(()=>{
+    if(apiUser !== null){
+      getPackages()
+    }
+  },[apiUser])
+
+  useEffect(()=>{
+    console.log(packages)
+  },[packages])
 
 
    return (
@@ -39,6 +44,7 @@ function Packages() {
               <Card sx={{height: "100%"}}>
                 <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
                   <CardContent>
+                    <Typography variant='h5'>{draft.title}</Typography>
                     <Typography variant='body'>{draft.award_text}</Typography>
                   </CardContent>
                 </CardActionArea>
@@ -47,9 +53,6 @@ function Packages() {
           )
         })}  
       </Grid>
-      <Routes>
-        <Route path='/:packageID' element={<PackageEdit/>}/>
-      </Routes>
     </Box>
     
   )

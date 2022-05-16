@@ -16,11 +16,11 @@ export function ApiProvider({ children }) {
   const [apiUser, setApiUser] = React.useState(null);
   const [allAwards, setAllAwards] = React.useState([]);
   const [filteredAwards, setFilteredAwards] = React.useState([]);
-  const prevFilteredAwards = React.useRef();
+  const rankFilter = React.useRef(null);
+  const afscFilter = React.useRef([]);
   const [packages, setPackages] = React.useState([]);
   const [afscs, setAfscs] = React.useState([]);
   const [units, setUnits] = React.useState([]);
-  const [demographics, setDemographics] = React.useState([]);
   const [mentors, setMentors] = React.useState([]);
 
   useEffect(()=>{
@@ -67,40 +67,39 @@ export function ApiProvider({ children }) {
     })
   }
 
-  function getDemographics() {
-    axios.get(`${apiUrl}/demographics`)
-    .then((data) =>{
-      // console.log('demographics data:', data.data);
-      setDemographics(data.data)
-    })
-  }
-
-  function getMentors() {
-    axios.get(`${apiUrl}/users/mentors`)
+  function getMentors(id) {
+    axios.get(`${apiUrl}/users/mentors/${id}`)
     .then((data) =>{
       console.log('mentors data:', data.data)
       setMentors(data.data);
     })
   }
 
-  function filterAwards({ rankFilter, afscFilter }) {
-    console.log(afscFilter);
+  function filterAwards(updatedFilter) {
+    if (updatedFilter.rank) rankFilter.current = updatedFilter.rank;
+    const rankFilterEmpty = Object.entries(rankFilter.current).filter(x => x[1]).length === 0;
 
-    if (rankFilter) {
-      setFilteredAwards(
-        allAwards.filter(award => {
-          console.log(award);
-          for (const tier in rankFilter) {
-            if (!rankFilter[tier]) continue;
-            if (award.rank_category === tier || award.rank_category === null) return true;
-          }
+    if (updatedFilter.afsc) afscFilter.current = updatedFilter.afsc;
+    const afscFilterEmpty = afscFilter.current.length === 0;
 
-          return false;
-        })
-      )
-    }
+    setFilteredAwards(
+      allAwards.filter(award => {
+        for (const rank in rankFilter.current) {
+          if (!rankFilter.current[rank]) continue;
+          if (award.rank_category === rank) return true;
+        }
 
+        for (const afsc of afscFilter.current) {
+          if (award.afscs_code === afsc.code) return true;
+        }
 
+        if (rankFilterEmpty && afscFilterEmpty) {
+          return true;
+        }
+        
+        return false;
+      })
+    )
   }
 
   const value = {
@@ -117,8 +116,6 @@ export function ApiProvider({ children }) {
     getAfscs,
     units,
     getUnits,
-    demographics,
-    getDemographics,
     mentors,
     getMentors
   };

@@ -15,6 +15,7 @@ import { ColorModeThemeProvider } from './contexts/ThemeContext';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import PackageEdit from './components/pages/PackageEdit';
 
 function App() {
   const location = useLocation();
@@ -33,7 +34,8 @@ function App() {
       <Route exact path='/' element={<Home />} />
       <Route path='/dashboard' element={<ProtectedRoute user={firebaseUser}><Dashboard /></ProtectedRoute>} />
       <Route path='/awards/*' element={<Awards />} />
-      <Route path='/packages/*' element={<ProtectedRoute user={firebaseUser}><Packages /></ProtectedRoute>} />
+      <Route path='/packages' element={<ProtectedRoute user={firebaseUser}><Packages /></ProtectedRoute>} />
+      <Route path='/packages/:packageID' element={<ProtectedRoute user={firebaseUser}><PackageEdit /></ProtectedRoute>} />
       <Route path='/edit-profile' element={<ProtectedRoute user={firebaseUser}><EditProfile /></ProtectedRoute>}/>
     </Routes>
   )

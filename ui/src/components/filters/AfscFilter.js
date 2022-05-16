@@ -16,6 +16,7 @@ function AfscFilter() {
   const [inputValue, setInputValue] = React.useState('');
   const [selected, setSelected] = React.useState([]);
   const error = selected.length === 5 && inputValue.length > 0;
+  const warning = selected.length === 0;
 
   React.useEffect(() => {
     getAfscs();
@@ -35,7 +36,7 @@ function AfscFilter() {
   }, [afscs]);
 
   React.useEffect(() => {
-    filterAwards({afscFilter: selected});
+    filterAwards({afsc: selected});
   }, [selected])
 
   const handleInputChange = (event, newInputValue) => {
@@ -52,7 +53,7 @@ function AfscFilter() {
       {error &&
         <Grid item>
           <Typography variant='caption' color='error'>
-            Maximum allowed AFSC's selected.
+            {'Maximum allowed AFSC\'s selected.'}
           </Typography>
         </Grid>
       }
@@ -71,9 +72,19 @@ function AfscFilter() {
           getOptionLabel={x => `${x?.code} - ${x?.title}`}
           isOptionEqualToValue={(option, value) => option.code === value.code}
           getOptionDisabled={() => (selected.length < 5 ? false : true)}
-          disablePortal={false}
+          disablePortal={true}
           sx={{ width: 280, m: 1}}
         />
+      </Grid>
+      {error &&
+        <Grid item>
+          <Typography variant='caption' color='error'>
+            {'Maximum allowed AFSC\'s selected.'}
+          </Typography>
+        </Grid>
+      }
+      <Grid item>
+        <Typography variant='caption' color='secondary'>{warning && 'Displaying awards eligible for all AFSCs.'}</Typography>
       </Grid>
     </Grid>
   )

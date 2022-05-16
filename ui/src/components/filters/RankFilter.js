@@ -7,7 +7,7 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  FormHelperText,
+  Typography,
   Checkbox,
 } from '@mui/material';
 
@@ -38,18 +38,20 @@ function RankFilter() {
   });
 
   const { CIV1, CIV2, CIV3, CDT, JE, NCO, SNCO, CGO, FGO } = selected;
-  const error = [CIV1, CIV2, CIV3,  CDT, JE, NCO, SNCO, CGO, FGO].filter((v) => v).length < 1;
+  const warning = [CIV1, CIV2, CIV3,  CDT, JE, NCO, SNCO, CGO, FGO].filter((v) => v).length < 1;
 
   React.useEffect(() => {
     if (apiUser) {
       const userRank = {};
       userRank[apiUser.rank_category] = true;
-      setSelected({ ...selected, ...userRank });
+      setTimeout(() => {
+        setSelected({ ...selected, ...userRank });
+      }, 500);
     }
   }, [apiUser])
 
   React.useEffect(() => {
-    filterAwards({rankFilter: selected})
+    filterAwards({rank: selected})
   }, [selected])
 
   const handleChange = (event) => {
@@ -59,8 +61,6 @@ function RankFilter() {
   return (
     <Box m={3} pt={0}>
       <FormControl
-        required
-        error={error}
         component="fieldset"
         variant="standard"
       >
@@ -80,8 +80,8 @@ function RankFilter() {
             />
           ))}
         </FormGroup>
-        <FormHelperText>{error && 'Please select a rank.'}</FormHelperText>
       </FormControl>
+      <Typography variant='caption' color='secondary'>{warning && 'Displaying awards eligible for all ranks.'}</Typography>
     </Box>
   )
 }
