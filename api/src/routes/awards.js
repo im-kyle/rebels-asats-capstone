@@ -16,7 +16,7 @@ router
   .post('/', (request, response) => {
     db.insert(request.body).into('awards').returning('*')
       .then(data => {
-        response.status(201).json(data);
+        response.status(201).json(data[0]);
       })
       .catch(err => {
         console.log(err);
@@ -26,7 +26,7 @@ router
   .patch('/:id', (request, response) => {
     db('awards').update(request.body).where('id', '=', request.params.id).returning('*')
     .then(data => {
-      response.status(201).json(data);
+      response.status(201).json(data[0]);
     })
     .catch(err => {
       console.log(err);
@@ -36,7 +36,7 @@ router
   .delete('/:id', (request, response) => {
     db('awards').where('id', '=', request.params.id).delete('*')
     .then(data => {
-      response.status(200).json(data);
+      response.status(200).json(data[0]);
     })
     .catch(err => {
       console.log(err);

@@ -16,7 +16,7 @@ router
   .get('/:id', (request, response) => {
     db.select('*').from('users').where('id', '=', request.params.id)
       .then(data => {
-        response.status(200).json(data);
+        response.status(200).json(data[0]);
       })
       .catch(err => {
         console.log(err);
@@ -26,7 +26,7 @@ router
   .post('/', (request, response) => {
     db.insert(request.body).into('users').returning('*')
       .then(data => {
-        response.status(201).json(data);
+        response.status(201).json(data[0]);
       })
       .catch(err => {
         console.log(err);
@@ -46,7 +46,7 @@ router
   .delete('/:id', (request, response) => {
     db('users').where('id', '=', request.params.id).delete('*')
     .then(data => {
-      response.status(200).json(data);
+      response.status(200).json(data[0]);
     })
     .catch(err => {
       console.log(err);
