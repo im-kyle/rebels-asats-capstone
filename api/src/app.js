@@ -13,6 +13,7 @@ const unitsRouter = require('./routes/units');
 
 app.use(express.json())
 app.use(cors());
+app.use(express.json());
 app.use('/awards', awardsRouter);
 app.use('/requirements', requirementsRouter);
 app.use('/demographics', demographicsRouter);
