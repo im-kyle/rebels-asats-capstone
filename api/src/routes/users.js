@@ -2,16 +2,46 @@ const express = require('express');
 const router = express.Router();
 const db = require('../dbConnection');
 
+
+
+
+
 router
-  .get('/', (request, response) => {
-    db.select('*').from('users')
-      .then(data => {
-        response.status(200).json(data);
+  // .get('/', (request, response) => {
+  //   db.select('*').from('users')
+  //     .then(data => {
+  //       response.status(200).json(data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       throw err;
+  //     });
+  // })
+  .get('/',(req, res) => {
+    const fb_uid = req.query.fb_uid
+    if (fb_uid) {
+      db
+      .select('*')
+      .from('users')
+      .where('fb_uid', '=', fb_uid)
+      .leftJoin("afscs", "afscs.id","=","afsc_id")
+      .then((data) => {
+        res.status(200).json(data)
       })
       .catch(err => {
         console.log(err);
         throw err;
-      });
+      })
+    } else {
+      db
+      .select('*')
+      .from('users')
+      .then((data) => res.status(200).json(data))
+      .catch(err => {
+        console.log(err);
+        throw err;
+      })
+    }
   })
   .get('/:id', (request, response) => {
     db.select('*').from('users').where('id', '=', request.params.id)

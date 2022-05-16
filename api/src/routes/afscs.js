@@ -23,6 +23,16 @@ router
         throw err;
       });
   })
+  .get('/:id', (request, response) => {
+    db.select('*').from('afscs').where('id', '=', request.params.id).returning('*')
+      .then(data => {
+        response.status(200).json(data);
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  })
   .patch('/:id', (request, response) => {
     db('afscs').update(request.body).where('id', '=', request.params.id).returning('*')
     .then(data => {

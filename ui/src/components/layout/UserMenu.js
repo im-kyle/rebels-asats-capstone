@@ -65,9 +65,6 @@ const UserMenu = function() {
   const handleCloseUserMenu = (event, setting) => {
     setAnchorElUser(null);
 
-    console.log(event);
-    console.log(firebaseUser);
-
     if (setting === 'Logout') {
       logout();
     }

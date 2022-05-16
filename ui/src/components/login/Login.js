@@ -40,7 +40,7 @@ const Login = () => {
       try {
         await login(values.email, values.password);
         setError('');
-        navigate('/my-posts');
+        navigate('/dashboard');
       } catch (error) {
         console.log(error)
         setError('Incorrect login credentials.');

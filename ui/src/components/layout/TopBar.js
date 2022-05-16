@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import {
   AppBar,
-  Box,
   Toolbar,
   IconButton,
   Button,
@@ -57,47 +56,45 @@ const TopBar = function() {
   ]
   
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar id="back-to-top-anchor">
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item>
-              <Link 
-                to="/" 
-                style={{
-                  color: 'white',
-                    textDecoration: 'none',
-                    '&:hover': {
-                      color: 'white'
-                    }
-                }}
-              > 
-                <Typography
-                  variant="overline"
-                  sx={{ flexGrow: 1, lineHeight: 2, display: { xs: 'none', sm: 'block', fontSize: 36 }}}
-                >
-                  ASATS
-                </Typography>
-              </Link>
-            </Grid>
-            <Grid item>
-              {menuItems.map((item, i) => (
-                  <MenuButton key={i} text={item.text} icon={item.icon} cb={item.handleClick} />
-                ))
-              }
-            </Grid>
-            <Grid item display="flex">
-              <UserMenu />
-              <Tooltip title={`set ${theme.palette.mode === 'dark' ? 'light' : 'dark'} mode`} arrow>
-                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit" tabIndex={-1}>
-                  {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
-                </IconButton>
-              </Tooltip>
-            </Grid>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, maxHeight: 75 }}>
+      <Toolbar id="back-to-top-anchor">
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Link 
+              to="/" 
+              style={{
+                color: 'white',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    color: 'white'
+                  }
+              }}
+            > 
+              <Typography
+                variant="overline"
+                sx={{ flexGrow: 1, lineHeight: 2, display: { xs: 'none', sm: 'block', fontSize: 36 }}}
+              >
+                ASATS
+              </Typography>
+            </Link>
           </Grid>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          <Grid item>
+            {menuItems.map((item, i) => (
+                <MenuButton key={i} text={item.text} icon={item.icon} cb={item.handleClick} />
+              ))
+            }
+          </Grid>
+          <Grid item display="flex">
+            <UserMenu />
+            <Tooltip title={`set ${theme.palette.mode === 'dark' ? 'light' : 'dark'} mode`} arrow>
+              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit" tabIndex={-1}>
+                {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 }
 

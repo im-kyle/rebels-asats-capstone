@@ -11,6 +11,7 @@ const usersRouter = require('./routes/users');
 const afscsRouter = require('./routes/afscs');
 const unitsRouter = require('./routes/units');
 
+app.use(express.json())
 app.use(cors());
 app.use(express.json());
 app.use('/awards', awardsRouter);

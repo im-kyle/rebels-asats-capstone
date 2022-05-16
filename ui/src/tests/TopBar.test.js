@@ -5,10 +5,6 @@ import TopBar from '../components/layout/TopBar'
 import { ColorModeThemeProvider } from '../contexts/ThemeContext';
 import { BrowserRouter} from 'react-router-dom';
 
-
-
-// const mockData = jest.spyOn(AuthProvider, "logout").mockReturnValue(()=>{})
-// const mockData2 = jest.spyOn(AuthProvider, "firebaseUser").mockReturnValue(false);
 // jest.mock("../contexts/AuthContext" ,()=>{
 
 //   const originalModule = jest.requireActual()
@@ -29,8 +25,6 @@ jest.mock("../components/layout/UserMenu", ()=>{
     }
   }
 })
-// useAuth.firebaseUser = false;
-// useAuth.logout = jest.fn()
 
 beforeEach(()=>{
   render(
