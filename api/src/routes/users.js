@@ -28,26 +28,21 @@ router
       .then((data) => {
         res.status(200).json(data)
       })
-      .catch(err =>
-        res.status(404).json({
-          message:
-            'Could not GET users data.'
-        })
-      );
+      .catch(err => {
+        console.log(err);
+        throw err;
+      })
     } else {
       db
       .select('*')
       .from('users')
       .then((data) => res.status(200).json(data))
-      .catch(err =>
-        res.status(404).json({
-          message:
-            'Could not GET users data.'
-        })
-      );
+      .catch(err => {
+        console.log(err);
+        throw err;
+      })
     }
   })
-
   .get('/:id', (request, response) => {
     db.select('*').from('users').where('id', '=', request.params.id)
       .then(data => {
