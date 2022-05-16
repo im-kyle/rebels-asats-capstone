@@ -203,7 +203,6 @@ describe("Awards Route", () => {
       .expect(response => {
         expect(response.body[0].id).toBe(1);
         expect(response.body[0].requirements_id).toBe(1);
-//        expect(response.body.length).toBe(22);
       })
       .end((err, res) => {
         if (err) throw err;
