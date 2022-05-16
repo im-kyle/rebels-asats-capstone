@@ -25,7 +25,9 @@ router
       .from('users')
       .where('fb_uid', '=', fb_uid)
       .leftJoin("afscs", "afscs.id","=","afsc_id")
-      .then((data) => res.status(200).json(data))
+      .then((data) => {
+        res.status(200).json(data)
+      })
       .catch(err =>
         res.status(404).json({
           message:
