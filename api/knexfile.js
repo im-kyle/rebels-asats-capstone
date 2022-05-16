@@ -9,6 +9,8 @@ const PASSWORD = process.env.POSTGRES_PASSWORD || 'docker';
 const DATABASE = process.env.POSTGRES_DB || 'capstone';
 const PORT = process.env.PORT || 5432;
 
+//const DATABASE_URL = "postgresql://postgres:password@localhost:5432/capstone"
+
 module.exports = {
 
   development: {
