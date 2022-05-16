@@ -65,7 +65,7 @@ test('GETs Root Route', (done) => {
     .expect((response) => {
       expect(response.text).toBe("The server is functioning properly.");
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -78,7 +78,7 @@ describe("Users Route:", () => {
       .expect((response) => {
         expect(response.body.length).not.toBe(0);
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) throw err;
         done();
       })
@@ -89,7 +89,7 @@ describe("Users Route:", () => {
       .expect((response) => {
         expect(response.body.last_name).toBe('Horne');
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) throw err;
         done();
       })
@@ -113,7 +113,7 @@ describe("Users Route:", () => {
       .expect((response) => {
         expect(response.body[0].first_name).toBe('Martin');
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) throw err;
         done();
       })
@@ -124,7 +124,7 @@ describe("Users Route:", () => {
       .expect((response) => {
         expect(response.body.first_name).toBe('Martin');
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) throw err;
         done();
       })
@@ -139,7 +139,7 @@ describe("User Mentorship Routes:", () => {
         expect(response.body[0].user_id).toBe(1);
         expect(response.body[0].mentor_id).toBe(5);
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) throw err;
         done();
       })
@@ -151,7 +151,7 @@ describe("User Mentorship Routes:", () => {
       expect(response.body[0].user_id).toBe(2);
       expect(response.body[0].mentor_id).toBe(1);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -164,7 +164,7 @@ describe("User Mentorship Routes:", () => {
       expect(response.body.user_id).toBe(4);
       expect(response.body.mentor_id).toBe(1);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -177,7 +177,7 @@ describe("User Mentorship Routes:", () => {
       expect(response.body.user_id).toBe(4);
       expect(response.body.mentor_id).toBe(2);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -189,7 +189,7 @@ describe("User Mentorship Routes:", () => {
       expect(response.body.user_id).toBe(4);
       expect(response.body.mentor_id).toBe(2);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -204,7 +204,7 @@ describe("Awards Route", () => {
         expect(response.body[0].id).toBe(1);
         expect(response.body[0].requirements_id).toBe(1);
       })
-      .end((err, res) => {
+      .end((err) => {
         if (err) throw err;
         done();
       })
@@ -217,7 +217,7 @@ describe("Awards Route", () => {
       exampleAwardResponse = response.body;
       expect(response.body.title).toBe('Annual Influential Women in STEM')
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -229,7 +229,7 @@ describe("Awards Route", () => {
     .expect(response => {
       expect(response.body.title).toBe(exampleAwardTitle);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -240,7 +240,7 @@ describe("Awards Route", () => {
     .expect(response => {
       expect(response.body.id).toBe(exampleAwardResponse.id)
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -255,7 +255,7 @@ describe("Fetching Requirements/Demographics", () => {
       expect(response.body[0].id).toBe(1);
       expect(response.body[14].id).toBe(15);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -267,7 +267,7 @@ describe("Fetching Requirements/Demographics", () => {
       expect(response.body[3].id).toBe(4);
       expect(response.body[3].is_female).toBe(true);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -282,7 +282,7 @@ describe("Packages Route", () => {
       expect(response.body[0].award_id).toBe(1);
       expect(response.body[2].is_completed).toBe(true);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -296,7 +296,7 @@ describe("Packages Route", () => {
       expect(response.body.is_completed).toBe(false);
       expect(response.body.award_id).toBe(13);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -308,7 +308,7 @@ describe("Packages Route", () => {
     .expect(response => {
       expect(response.body.comments).toBe("Updated something.")
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
@@ -319,7 +319,7 @@ describe("Packages Route", () => {
     .expect(response => {
       expect(response.body.id).toBe(examplePackageResponse.id);
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) throw err;
       done();
     })
