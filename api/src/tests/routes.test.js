@@ -34,9 +34,15 @@ const exampleAward = {
 };
 let exampleAwardResponse = null;
 const exampleAwardTitle = 'Annual Influential Leading Women in STEM';
-const exampleRequirement = {
-
+const packageUserID = 5;
+const examplePackage = {
+  user_id: 5,
+  award_id: 13,
+  award_text: "Something goes here.",
+  comments: "Something also goes here.",
+  is_completed: false
 };
+let examplePackageResponse = null;
 
 /* Template:
 
@@ -268,3 +274,55 @@ describe("Fetching Requirements/Demographics", () => {
     })
   });
 });
+
+describe("Packages Route", () => {
+  test("Retrieves an individual's package drafts.", (done) => {
+    request(testApp)
+    .get(`/packages/${packageUserID}`)
+    .expect(response => {
+      expect(response.body[0].award_id).toBe(1);
+      expect(response.body[2].is_completed).toBe(true);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+  test("Adds a new package draft.", (done) => {
+    request(testApp)
+    .post('/packages')
+    .send(examplePackage)
+    .expect(response => {
+      examplePackageResponse = response.body;
+      expect(response.body.is_completed).toBe(false);
+      expect(response.body.award_id).toBe(13);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+  test("Modifies an award package.", (done) => {
+    request(testApp)
+    .patch(`/packages/${examplePackageResponse.id}`)
+    .send({comments: "Updated something."})
+    .expect(response => {
+      expect(response.body.comments).toBe("Updated something.")
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+  test("Removes an award package.", (done) => {
+    request(testApp)
+    .delete(`/packages/${examplePackageResponse.id}`)
+    .expect(response => {
+      expect(response.body.id).toBe(examplePackageResponse.id);
+    })
+    .end((err, res) => {
+      if (err) throw err;
+      done();
+    })
+  });
+})
