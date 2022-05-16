@@ -4,7 +4,10 @@ const db = require('../dbConnection');
 
 router
   .get('/:id', (request, response) => {
-    db('award_packages').innerJoin('awards', 'award_packages.award_id', 'awards.id')
+    db.select('*')
+      .from('award_packages')
+      .leftJoin("awards", "awards.id", "=", "award_packages.award_id")
+      .where('user_id', '=', request.params.id)
       .then(data => {
         response.status(200).json(data);
       })
@@ -16,7 +19,7 @@ router
   .post('/', (request, response) => {
     db.insert(request.body).into('award_packages').returning('*')
       .then(data => {
-        response.status(201).json(data[0]);
+        response.status(201).json(data);
       })
       .catch(err => {
         console.log(err);
@@ -26,7 +29,7 @@ router
   .patch('/:id', (request, response) => {
     db('award_packages').update(request.body).where('id', '=', request.params.id).returning('*')
     .then(data => {
-      response.status(201).json(data[0]);
+      response.status(201).json(data);
     })
     .catch(err => {
       console.log(err);
@@ -36,7 +39,7 @@ router
   .delete('/:id', (request, response) => {
     db('award_packages').where('id', '=', request.params.id).delete('*')
     .then(data => {
-      response.status(200).json(data[0]);
+      response.status(200).json(data);
     })
     .catch(err => {
       console.log(err);
