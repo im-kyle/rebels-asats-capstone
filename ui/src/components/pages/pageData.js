@@ -5,6 +5,7 @@ import MyPackagesFilter from '../filters/MyPackagesFilter';
 import PackagesReviewFilter from '../filters/PackagesReviewFilter';
 import UserInfoFilter from '../filters/UserInfoFilter';
 import MentorInfoFilter from '../filters/MentorInfoFilter';
+import EqualOpportunityFilter from '../filters/EqualOpportunityFilter';
 
 const pageData = {
   '': {
@@ -25,7 +26,7 @@ const pageData = {
     filters: [
       <RankFilter key={0} />,
       <AfscFilter key={1} />,
-      // <DemographicsFilter key={2} />
+      <EqualOpportunityFilter key={2} />
     ]
   },
   'packages': {

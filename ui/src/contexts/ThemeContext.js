@@ -19,7 +19,9 @@ export function ColorModeThemeProvider({ children }) {
   const theme = React.useMemo(() => createTheme({
     palette: {
       mode,
-      primary: indigo,
+      primary: {
+        main: mode === 'light' ? '#0F044C' : '#787A91',
+      },
     },
 
     typography: {

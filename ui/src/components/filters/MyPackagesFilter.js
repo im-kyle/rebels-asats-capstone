@@ -21,28 +21,16 @@ function MyPackagesFilter() {
     getPackages();
   }, []);
 
-  // React.useEffect(() => {
-  //   filterPackages({status: selected});
-  // }, [selected])
+  React.useEffect(() => {
+    filterPackages({completed: selected.completed, inDraft: selected.inDraft})
+  }, [selected])
 
   const filterByComplete = () => {
-    // allPackages.filter((_package) => {
-    // if(_package.is_completed === true){
-    //   setSelected('Completed');
-    // }
-    // })
     setSelected({...selected, completed: !selected.completed})
-    filterPackages({completed: selected.completed, inDraft: selected.inDraft})
   }
 
   const filterByDraft = () => {
-    // allPackages.filter((_package) => {
-    // if(_package.is_completed !== true){
-    //   setSelected('In Draft');
-    // }
-    // })
     setSelected({...selected, inDraft: !selected.inDraft})
-    filterPackages({completed: selected.completed, inDraft: selected.inDraft})
   }
 
   return (

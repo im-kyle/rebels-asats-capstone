@@ -14,7 +14,7 @@ import {useNavigate } from 'react-router-dom';
 
 function Packages() {
 
-  const {allPackages, menteesPackages, getPackages, apiUser} = useApi();
+  const {allPackages, filteredPackages, menteesPackages, getPackages, apiUser, mentees} = useApi();
   const navigate = useNavigate()
 
   useEffect(()=> {
@@ -43,14 +43,15 @@ function Packages() {
           </Typography>
         </Grid>
 
-        {allPackages.map((draft, i)=>{
+        {filteredPackages.map((draft, i)=>{
           return(
             <Grid item minWidth={"20vw"} maxWidth={"30vw"} key={i}>
               <Card sx={{height: "100%"}}>
                 <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
                   <CardContent>
-
                     <Typography variant='h5'>{draft.title}</Typography>
+                    <Typography variant='subtitle1'>Author: {draft.first_name} {draft.last_name}</Typography>
+                    <Typography variant='subtitle2'>Completed: {`${draft.is_completed}`}</Typography>
                     <Typography variant='body'>{draft.award_text}</Typography>
                   </CardContent>
                 </CardActionArea>
@@ -65,6 +66,8 @@ function Packages() {
                 <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
                   <CardContent>
                     <Typography variant='h5'>{draft.title}</Typography>
+                    <Typography variant='subtitle1'>Author: {draft.first_name} {draft.last_name}</Typography>
+                    <Typography variant='subtitle2'>Completed: {`${draft.is_completed}`}</Typography>
                     <Typography variant='body'>{draft.award_text}</Typography>
                   </CardContent>
                 </CardActionArea>

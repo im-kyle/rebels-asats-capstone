@@ -9,7 +9,7 @@ function PackageEdit(){
   const location = useLocation();
   const navigate = useNavigate();
   const packageID = location.pathname.split("/")[2]
-  const {allPackages, apiUser, getPackages, apiUrl} = useApi();
+  const {allPackages, apiUser, getPackages, menteesPackages, apiUrl} = useApi();
   const [draft, setDraft] = useState({
     award_text:"",
     comments:"",
@@ -27,10 +27,6 @@ function PackageEdit(){
       getCurrentPackage()
     }
   },[apiUser, allPackages])
-
-  // useEffect(()=>{
-  //   console.log(draft)
-  // },[draft])
 
   const deletePackage = function(){
     axios.delete(`${apiUrl}/packages/${draft.id}`)
@@ -54,7 +50,6 @@ function PackageEdit(){
     let searchResult = undefined;
 
     for(let item of allPackages){
-      console.log(`${packageID} : ${item.id}`)
       if (packageID == item.id ){//&& item.user_id == apiUser.id user login check
         searchResult = item
         break;
@@ -63,7 +58,17 @@ function PackageEdit(){
     if(searchResult !== undefined){
       setDraft(searchResult)
     } else{
-      navigate("/packages")
+      for(let item of menteesPackages){
+        if (packageID == item.id ){//&& item.user_id == apiUser.id user login check
+          searchResult = item
+          break;
+        }
+      }
+      if(searchResult !== undefined){
+        setDraft(searchResult)
+      } else{
+        navigate("/packages")
+      }
     }
   }
 

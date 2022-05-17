@@ -6,11 +6,7 @@ import {
 } from '@mui/material';
 
 function PackagesReviewFilter() {
-  const { packages, apiUser, apiUrl, filterAwards } = useApi();
-
-  React.useEffect(() => {
-    console.log('packages review filter')
-  }, []);
+  const { mentees } = useApi();
 
   return (
     <Grid sx={{ width: 280, m: 1}}>

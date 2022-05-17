@@ -1,5 +1,4 @@
 import { useApi } from '../../contexts/ApiContext';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -8,17 +7,12 @@ import {
   Autocomplete,
   Typography,
   Switch,
+  FormControlLabel,
+  FormGroup
 } from '@mui/material';
 
 function EqualOpportunityFilter() {
-  const { apiUrl, filterAwards } = useApi();
   const [active, setActive] = useState(false);
-
-  React.useEffect(() => {
-  }, []);
-
-  React.useEffect(() => {
-  }, []);
 
   const handleSwitch = () => {
     setActive(true)
@@ -27,11 +21,9 @@ function EqualOpportunityFilter() {
   return (
     <Grid container justifyContent='center'>
       <Grid item>
-        <Switch
-        onChange={handleSwitch}
-        size="large"
-        label="View Equal Opportunity Awards"
-        />
+      <FormGroup>
+        <FormControlLabel control={<Switch onClick={handleSwitch}/>} label="View Equal Opportunity Awards" />
+      </FormGroup>
       </Grid>
     </Grid>
   )

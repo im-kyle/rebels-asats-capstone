@@ -24,6 +24,7 @@ export function ApiProvider({ children }) {
   const [units, setUnits] = React.useState([]);
   const [mentors, setMentors] = React.useState([]);
   const [mentees, setMentees] = React.useState([]);
+  const [filteredMenteesPackages, setFilteredMenteesPackages] = React.useState([]);
   const [menteesPackages, setMenteesPackages] = React.useState([]);
 
   useEffect(()=>{
@@ -60,9 +61,12 @@ export function ApiProvider({ children }) {
     if(apiUser?.id !== undefined){
       axios.get(`${apiUrl}/packages/${apiUser.id}`)
       .then((data)=>{
-        console.log(data.data)
-        setAllPackages(data.data)
-        setFilteredPackages(data.data)
+        let combinedData = []
+        for(let pack of data.data){
+          combinedData.push({...pack, first_name: apiUser.first_name ,last_name: apiUser.last_name})
+        }
+        setAllPackages(combinedData)
+        setFilteredPackages(combinedData)
     })
     }
 
@@ -111,8 +115,15 @@ export function ApiProvider({ children }) {
       for(let userPackages of data){
         menteesData = menteesData.concat(userPackages)
       }
-      console.log(menteesData)
-      setMenteesPackages(menteesData)
+      let combinedData = []
+      for(let pack of menteesData){
+        for(let mentee of mentees){
+          if(pack.user_id === mentee.user_id){
+            combinedData.push({...pack, ...mentee})
+          }
+        }
+      }
+      setMenteesPackages(combinedData)
     })
   }
 
@@ -143,20 +154,24 @@ export function ApiProvider({ children }) {
     )
   }
 
-  function filterPackages(updatedFilter) {
+  function filterPackages({completed, inDraft}) {
     setFilteredPackages(
       allPackages.filter(p => {
-        p.is_completed === true
+        if (completed && p.is_completed === true) return true;
+        if (inDraft && p.is_completed === false) return true;
+        return false;
       })
     )
-    // if (updatedFilter.status === 'Completed') {
-    //   setFilteredPackages(allPackages.filter((_package) => _package.is_completed === true))
-    //   console.log('package complete filter:', filteredPackages)
-    // }
-    // if (updatedFilter.status === 'In Draft') {
-    //   setFilteredPackages(allPackages.filter((_package) => _package.is_completed !== true))
-    // }
   }
+
+  // function filterMenteePackages(){
+  //   setFilteredMenteesPackages(
+  //     menteePackages.filter(p => {
+        //if mentee ID === selected -> return true)
+        //return false;
+  //     })
+  //   )
+  // }
 
   const value = {
     apiUrl,
@@ -168,6 +183,7 @@ export function ApiProvider({ children }) {
     filterAwards,
     allPackages,
     getPackages,
+    filteredPackages,
     filterPackages,
     afscs,
     getAfscs,
