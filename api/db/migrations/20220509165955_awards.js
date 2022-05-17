@@ -7,6 +7,7 @@ exports.up = function(knex) {
     table.increments('id');
     table.string('title', 250);
     table.text('description');
+    table.boolean('is_equal_opportunity_award');
     table.integer('requirements_id');
     table.foreign('requirements_id').references('requirements.id')
   })

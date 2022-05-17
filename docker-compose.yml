@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   pgdatasource:
+    external: false
 
 services:
   capstone-db:
@@ -26,8 +27,7 @@ services:
   capstone-api:
     build: api/
     depends_on:
-      capstone-db:
-        condition: service_healthy
+      - capstone-db
     ports:
       - '8080:8082'
     environment: 
@@ -45,7 +45,7 @@ services:
   capstone-ui:
     build: ui/
     depends_on:
-      - 'capstone-api'
+      - capstone-api
     ports:
       - '3001:3000'
     volumes:
