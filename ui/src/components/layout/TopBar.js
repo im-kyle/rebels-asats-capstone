@@ -1,4 +1,5 @@
 import { useColorMode } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 import UserMenu from './UserMenu';
 
 import React from 'react';
@@ -23,8 +24,8 @@ import PropTypes from 'prop-types';
 const MenuButton = function({text, icon, cb}) {
 
   return (
-    <Button 
-      variant="text" 
+    <Button
+      variant="text"
       startIcon={icon}
       size="large"
       edge="start"
@@ -47,21 +48,30 @@ MenuButton.propTypes = {
 const TopBar = function() {
   const theme = useTheme();
   const colorMode = useColorMode();
+  const{ firebaseUser } = useAuth();
   const navigate = useNavigate();
 
   const menuItems = [
-    {text: 'Dashboard', icon: <DashboardIcon />, handleClick: () => navigate('/dashboard')},
-    {text: 'Awards', icon: <MilitaryTechIcon />, handleClick: () => navigate('/awards')},
-    {text: 'Packages', icon: <DriveFileRenameOutlineIcon />, handleClick: () => navigate('/packages')},
+    {text: 'Dashboard', icon: <DashboardIcon />, route: () => navigate('/dashboard'), protected: true},
+    {text: 'Awards', icon: <MilitaryTechIcon />, route: () => navigate('/awards'), protected: false},
+    {text: 'Packages', icon: <DriveFileRenameOutlineIcon />, route: () => navigate('/packages'), protected: true},
   ]
-  
+
+  const handleClick = (item) => {
+    if (firebaseUser) {
+      item.route();
+    } else {
+      !item.protected && item.route();
+    }
+  }
+
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, maxHeight: 75 }}>
       <Toolbar id="back-to-top-anchor">
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               style={{
                 color: 'white',
                   textDecoration: 'none',
@@ -69,7 +79,7 @@ const TopBar = function() {
                     color: 'white'
                   }
               }}
-            > 
+            >
               <Typography
                 variant="overline"
                 sx={{ flexGrow: 1, lineHeight: 2, display: { xs: 'none', sm: 'block', fontSize: 36 }}}
@@ -80,7 +90,7 @@ const TopBar = function() {
           </Grid>
           <Grid item>
             {menuItems.map((item, i) => (
-                <MenuButton key={i} text={item.text} icon={item.icon} cb={item.handleClick} />
+                <MenuButton key={i} text={item.text} icon={item.icon} cb={() => handleClick(item)} />
               ))
             }
           </Grid>

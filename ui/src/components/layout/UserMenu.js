@@ -63,9 +63,12 @@ const UserMenu = function() {
   };
 
   const handleCloseUserMenu = (event, setting) => {
-    setAnchorElUser(null);
+    if (event.code !== 'Tab') {
+      setAnchorElUser(null);
+    }
 
     if (setting === 'Logout') {
+      navigate('/');
       logout();
     }
 

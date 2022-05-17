@@ -166,7 +166,7 @@ function Home() {
         </Typography>
       </Container>
       <Container maxWidth="lg" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+        <Grid container spacing={0} alignItems="flex-end">
           {images.map((image) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
@@ -180,7 +180,7 @@ function Home() {
                 focusRipple
                 key={image.title}
                 style={{
-                  width: '100%'
+                  width: '100%',
                 }}
                 onClick={() => handleClick(image)}
               >
@@ -213,20 +213,20 @@ function Home() {
         component="footer"
         sx={{
           borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-          mt: 8,
+          mt: 10,
           py: [3, 6],
         }}
       >
-        <Grid container spacing={4} justifyContent="space-evenly">
+        <Grid container spacing={5} justifyContent="space-evenly">
           {footers.map((footer) => (
             <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="text.primary" gutterBottom>
+              <Typography variant="h7" color="text.primary" gutterBottom>
                 {footer.title}
               </Typography>
               <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Link href="#" variant="subtitle1" color="text.secondary">
+                    <Link href="#" variant="subtitle2" color="text.secondary">
                       {item}
                     </Link>
                   </li>

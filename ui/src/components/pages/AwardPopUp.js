@@ -32,6 +32,10 @@ function AwardPopUp() {
     //   backgroundColor: "white"
     // }
   };
+  useEffect(()=>{
+    console.log(award)
+    console.log(allAwards)
+  },[award])
 
   useEffect(()=>{
     if(allAwards.length !== 0){
@@ -51,10 +55,11 @@ function AwardPopUp() {
   }, [allAwards])
 
   const handlePackageCreation = ()=>{
-    console.log("here")
-    axios.post(`${apiUrl}/packages`, {user_id: apiUser.id, 
-      award_id: award.id, 
-      award_text: '', 
+    console.log(award)
+    axios.post(`${apiUrl}/packages`, {user_id: apiUser.id,
+      award_id: award.id,
+      award_text: '',
+      comments: '',
       is_completed: false})
       .then(data=>{
         console.log(data)
