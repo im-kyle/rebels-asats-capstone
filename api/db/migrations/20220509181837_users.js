@@ -19,8 +19,6 @@
         table.string('phone_comm', 15);
         table.integer('unit_id', 15);
         table.boolean('is_admin');
-        table.integer('demographic_id');
-        table.foreign('demographic_id').references('demographics.id');
     })
 };
 
@@ -31,7 +29,6 @@
 exports.down = function(knex) {
     return knex.schema.alterTable('users', table => {
       table.dropForeign('afsc_id');
-      table.dropForeign('demographic_id');
     })
     .then(function() {
       return knex.schema.dropTableIfExists('users');
