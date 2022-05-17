@@ -25,7 +25,7 @@ function App() {
 
   React.useEffect(() => {
     const path = location.pathname.split('/')[1];
-    setHasSideBar(pageData[path].hasSideBar);
+    setHasSideBar(pageData[path].sideBar);
     setFilters(pageData[path].filters);
   }, [location]);
 
