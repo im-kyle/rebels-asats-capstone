@@ -4,7 +4,10 @@ const db = require('../dbConnection');
 
 router
   .get('/:id', (request, response) => {
-    db.select('*').from('users_mentors').where('mentor_id', '=', request.params.id)
+    db.select('users_mentors.user_id', "users_mentors.mentor_id", "users.first_name", "users.last_name").from('users_mentors')
+      .where('mentor_id', '=', request.params.id)
+      .leftJoin("users", "users.id", "=", "user_id")
+
       .then(data => {
         response.status(200).json(data);
       })
