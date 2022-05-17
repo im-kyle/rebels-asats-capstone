@@ -247,33 +247,6 @@ describe("Awards Route", () => {
   });
 });
 
-describe("Fetching Requirements/Demographics", () => {
-  test("Retrieves all requirements.", (done) => {
-    request(testApp)
-    .get('/requirements')
-    .expect(response => {
-      expect(response.body[0].id).toBe(1);
-      expect(response.body[14].id).toBe(15);
-    })
-    .end((err) => {
-      if (err) throw err;
-      done();
-    })
-  });
-  test("Retrieves all demographics.", (done) => {
-    request(testApp)
-    .get('/demographics')
-    .expect(response => {
-      expect(response.body[3].id).toBe(4);
-      expect(response.body[3].is_female).toBe(true);
-    })
-    .end((err) => {
-      if (err) throw err;
-      done();
-    })
-  });
-});
-
 describe("Packages Route", () => {
   test("Retrieves an individual's package drafts.", (done) => {
     request(testApp)
