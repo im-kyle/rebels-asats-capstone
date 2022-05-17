@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline,
 } from '@mui/material';
+import { indigo } from '@mui/material/colors';
 
 import PropTypes from 'prop-types';
 
@@ -18,7 +19,9 @@ export function ColorModeThemeProvider({ children }) {
   const theme = React.useMemo(() => createTheme({
     palette: {
       mode,
+      primary: indigo,
     },
+
     typography: {
       overline: {
         fontFamily: [

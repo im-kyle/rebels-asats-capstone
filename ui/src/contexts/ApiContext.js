@@ -16,12 +16,15 @@ export function ApiProvider({ children }) {
   const [apiUser, setApiUser] = React.useState(null);
   const [allAwards, setAllAwards] = React.useState([]);
   const [filteredAwards, setFilteredAwards] = React.useState([]);
+  const [allPackages, setAllPackages] = React.useState([]);
+  const [filteredPackages, setFilteredPackages] = React.useState([]);
   const rankFilter = React.useRef(null);
   const afscFilter = React.useRef([]);
-  const [packages, setPackages] = React.useState([]);
   const [afscs, setAfscs] = React.useState([]);
   const [units, setUnits] = React.useState([]);
   const [mentors, setMentors] = React.useState([]);
+  const [mentees, setMentees] = React.useState([]);
+  const [menteesPackages, setMenteesPackages] = React.useState([]);
 
   useEffect(()=>{
     if(firebaseUser !== null && apiPosted){
@@ -35,8 +38,16 @@ export function ApiProvider({ children }) {
   useEffect(()=>{
     if(apiUser !== null){
       getPackages();
+      getMentees(apiUser?.id);
+      getMentors(apiUser?.id);
     }
-  },[apiUser])
+  }, [apiUser])
+
+  useEffect(()=>{
+    if(mentees.length !== 0){
+      getMenteesPackages()
+    }
+  },[mentees])
 
   function getAfscs() {
     return axios.get(`${apiUrl}/afscs`)
@@ -46,10 +57,15 @@ export function ApiProvider({ children }) {
   }
 
   function getPackages() {
-    axios.get(`${apiUrl}/packages/${apiUser.id}`)
-    .then((data)=>{
-      setPackages(data.data)
+    if(apiUser?.id !== undefined){
+      axios.get(`${apiUrl}/packages/${apiUser.id}`)
+      .then((data)=>{
+        console.log(data.data)
+        setAllPackages(data.data)
+        setFilteredPackages(data.data)
     })
+    }
+
   }
 
   function getAwards() {
@@ -68,10 +84,35 @@ export function ApiProvider({ children }) {
   }
 
   function getMentors(id) {
+    axios.get(`${apiUrl}/users/mentees/${id}`)
+      .then(response => {
+        setMentors(response.data);
+      })
+  }
+
+  function getMentees(id) {
     axios.get(`${apiUrl}/users/mentors/${id}`)
     .then((data) =>{
-      console.log('mentors data:', data.data)
-      setMentors(data.data);
+      // console.log('mentees data:', data.data)
+      setMentees(data.data);
+    })
+  }
+
+  async function getMenteesPackages(){
+    let promiseArr = []
+    let menteesData = []
+    let data;
+    for(let mentee of mentees){
+      data = await axios.get(`${apiUrl}/packages/${mentee.user_id}`)
+      promiseArr.push(data.data)
+    }
+    Promise.all(promiseArr)
+    .then(data =>{
+      for(let userPackages of data){
+        menteesData = menteesData.concat(userPackages)
+      }
+      console.log(menteesData)
+      setMenteesPackages(menteesData)
     })
   }
 
@@ -96,10 +137,25 @@ export function ApiProvider({ children }) {
         if (rankFilterEmpty && afscFilterEmpty) {
           return true;
         }
-        
+
         return false;
       })
     )
+  }
+
+  function filterPackages(updatedFilter) {
+    setFilteredPackages(
+      allPackages.filter(p => {
+        p.is_completed === true
+      })
+    )
+    // if (updatedFilter.status === 'Completed') {
+    //   setFilteredPackages(allPackages.filter((_package) => _package.is_completed === true))
+    //   console.log('package complete filter:', filteredPackages)
+    // }
+    // if (updatedFilter.status === 'In Draft') {
+    //   setFilteredPackages(allPackages.filter((_package) => _package.is_completed !== true))
+    // }
   }
 
   const value = {
@@ -110,14 +166,18 @@ export function ApiProvider({ children }) {
     getAwards,
     filteredAwards,
     filterAwards,
-    packages,
+    allPackages,
     getPackages,
+    filterPackages,
     afscs,
     getAfscs,
     units,
     getUnits,
     mentors,
-    getMentors
+    mentees,
+    getMentees,
+    getMenteesPackages,
+    menteesPackages
   };
 
   return (
