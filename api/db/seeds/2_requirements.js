@@ -1,6 +1,6 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
@@ -8,7 +8,7 @@ exports.seed = async function(knex) {
   await knex('requirements').del()
   await knex('requirements').insert([
     //Rank Categories
-    {afscs_code: null, rank_category: 'Junior Enlisted'}, //1
+    {afscs_code: null, rank_category: 'JE'}, //1
     {afscs_code: null, rank_category: 'NCO'}, //2 Non-Commissioned Officer
     {afscs_code: null, rank_category: 'SNCO'}, //3 Senior NCO
     {afscs_code: null, rank_category: 'CGO'}, //4 Company Grade Officer
