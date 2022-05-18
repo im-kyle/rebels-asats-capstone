@@ -19,9 +19,10 @@ function PackagesReviewFilter() {
   }, [mentees])
 
   React.useEffect(() => {
-    filterMenteePackages(selected)
-    console.log('selected', selected)
-  }, [selected])
+    if(menteesPackages.length !== 0 ) {
+      filterMenteePackages(selected)
+    }
+  }, [selected, menteesPackages])
 
   const handleMenteePackageFilter = (event, mentee) => {
     setSelected({...selected, [mentee.user_id]: event.target.checked})

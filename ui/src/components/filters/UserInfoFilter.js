@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApi } from '../../contexts/ApiContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Grid,
@@ -9,17 +10,9 @@ import {
   Badge,
   IconButton,
   Avatar,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  TextField,
-  Button,
   Typography,
   Paper,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import EditIcon from '@mui/icons-material/Edit';
 
 const rankInsignia = {
@@ -46,25 +39,9 @@ const rankInsignia = {
 }
 
 function UserInfoFilter() {
-  const { firebaseUser, updatePhoto } = useAuth();
+  const { firebaseUser } = useAuth();
   const { apiUser } = useApi();
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [userInfo, setUserInfo] = React.useState(null);
-
-  const handleCloseDialog = () => {
-    setTimeout(() => {
-      setOpenDialog(false);
-    }, 500);
-  }
-
-  const handleSubmitPhoto = () => {
-    updatePhoto(userInfo.url)
-    handleCloseDialog();
-  }
-
-  const handleCancelPhoto = () => {
-    handleCloseDialog();
-  }
+  const navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -73,10 +50,10 @@ function UserInfoFilter() {
         spacing={0}
         direction="column"
         alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '50vh' }}
+        justifyContent="space-between"
+        style={{ height: '50vh' }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 5 }}>
           <Badge
             overlap="circular"
             anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -92,23 +69,13 @@ function UserInfoFilter() {
                 <React.Fragment />
             }
           >
-            <Badge
-              overlap="circular"
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              badgeContent={
-                <IconButton onClick={() => setOpenDialog(true)}>
-                  <SettingsIcon />
-                </IconButton>
-              }
-            >
-              <Avatar
-                component={Paper}
-                elevation={4}
-                alt={`${firebaseUser.email}`}
-                src={firebaseUser?.photoURL}
-                sx={{ height: '200px', width: '200px' }}
-              />
-            </Badge>
+            <Avatar
+              component={Paper}
+              elevation={4}
+              alt={`${firebaseUser.email}`}
+              src={firebaseUser?.photoURL}
+              sx={{ height: '200px', width: '200px' }}
+            />
           </Badge>
           <Typography variant='h5' sx={{fontWeight: 'bold', mt: 4}}>
             {`${apiUser?.rank_grade} ${apiUser?.first_name} ${apiUser?.last_name}`}
@@ -119,34 +86,22 @@ function UserInfoFilter() {
           <Typography variant='body2' sx={{ mt: -1, mb: 1}}>
             {apiUser?.afsc_code}
           </Typography>
-
-          <List dense={true} style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
-            <ListItem key='org'>Organization: {apiUser?.majcom_foa_dru}</ListItem>
-          </List>
+          <Typography variant='h6' sx={{ mt: 2, mb: -1}}>
+            {apiUser?.duty_title}
+          </Typography>
+          <Typography variant='subtitle1' sx={{ mt: 0 }}>
+            {apiUser?.majcom_foa_dru}
+          </Typography>
+          <Typography variant='subtitle1' sx={{ mt: -1 }}>
+            {`${apiUser?.base}, ${apiUser?.state}`}
+          </Typography>
         </Box>
+        <Grid item sx={{marginLeft: 'auto', p: 1, mt: -4}}>
+          <IconButton onClick={() => navigate('/edit-profile')}>
+            <EditIcon />
+          </IconButton>
+        </Grid>
       </Grid>
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Profile Photo</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To change your profile photo, please enter a link to the image.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Image URL"
-            type="url"
-            fullWidth
-            variant="standard"
-            onChange={(event) => setUserInfo({...userInfo, url: event.target.value})}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancelPhoto}>Cancel</Button>
-          <Button onClick={handleSubmitPhoto}>Submit</Button>
-        </DialogActions>
-      </Dialog>
     </React.Fragment>
   )
 }

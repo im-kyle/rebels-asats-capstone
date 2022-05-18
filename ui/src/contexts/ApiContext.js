@@ -20,6 +20,7 @@ export function ApiProvider({ children }) {
   const [filteredPackages, setFilteredPackages] = React.useState([]);
   const rankFilter = React.useRef(null);
   const afscFilter = React.useRef([]);
+  const eoFilter = React.useRef(false);
   const [afscs, setAfscs] = React.useState([]);
   const [units, setUnits] = React.useState([]);
   const [commander, setCommander] = React.useState(null);
@@ -69,6 +70,10 @@ export function ApiProvider({ children }) {
       getMenteesPackages()
     }
   },[mentees])
+
+  useEffect(()=>{
+    console.log(filteredMenteesPackages)
+  },[filteredMenteesPackages])
 
   function getAfscs() {
     return axios.get(`${apiUrl}/afscs`)
@@ -163,8 +168,13 @@ export function ApiProvider({ children }) {
     if (updatedFilter.afsc) afscFilter.current = updatedFilter.afsc;
     const afscFilterEmpty = afscFilter.current.length === 0;
 
+    if (updatedFilter.eo) eoFilter.current = updatedFilter.eo;
+
     setFilteredAwards(
       allAwards.filter(award => {
+        if (!eoFilter.current) {
+
+        }
         for (const rank in rankFilter.current) {
           if (!rankFilter.current[rank]) continue;
           if (award.rank_category === rank) return true;
@@ -172,6 +182,10 @@ export function ApiProvider({ children }) {
 
         for (const afsc of afscFilter.current) {
           if (award.afscs_code === afsc.code) return true;
+        }
+
+        if ( && award.is_equal_opportunity_award) {
+
         }
 
         if (rankFilterEmpty && afscFilterEmpty) {
@@ -194,15 +208,7 @@ export function ApiProvider({ children }) {
   }
 
   async function filterMenteePackages(selected) {
-    let arr = [];
-    if(selected) {
-      arr.push(Object.entries(selected))
-        let filteredMenteeArr = arr.map((mentee) => {
-          if (mentee[1] == true) return true
-          return filteredMenteeArr;
-        })
-          console.log('filteredMentees:', arr);
-    }
+    setFilteredMenteesPackages(menteesPackages.filter((pack => selected[pack.user_id] && pack.is_completed)))
   }
 
 

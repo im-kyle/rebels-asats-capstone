@@ -14,7 +14,7 @@ import {useNavigate } from 'react-router-dom';
 
 function Packages() {
 
-  const {allPackages, filteredPackages, menteesPackages, getMenteesPackages, getPackages, apiUser, mentees} = useApi();
+  const {allPackages, filteredPackages, menteesPackages, getMenteesPackages, filteredMenteesPackages, getPackages, apiUser, mentees} = useApi();
   const navigate = useNavigate()
 
   useEffect(()=> {
@@ -59,7 +59,7 @@ function Packages() {
           )
         })}
 
-        {menteesPackages.map((draft, i)=>{
+        {filteredMenteesPackages?.map((draft, i)=>{
           return(
             <Grid item minWidth={"20vw"} maxWidth={"30vw"} sm={3} md={3} lg={2.5} xl={2} height={300} key={i}>
               <Card sx={{height: "100%"}}>

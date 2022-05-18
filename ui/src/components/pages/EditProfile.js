@@ -7,16 +7,30 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
+  Badge,
+  Avatar,
+  IconButton,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material';
-import {useNavigate } from 'react-router-dom';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useApi } from '../../contexts/ApiContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Box } from '@mui/system';
 
 function EditProfile() {
   const { apiUser, getApiUser,  units, getUnits, apiUrl, getAfscs, afscs } = useApi()
-  const navigate = useNavigate()
+  const { firebaseUser, updatePhoto } = useAuth();
+  const navigate = useNavigate();
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [photoUrl, setPhotoUrl] = React.useState('');
 
   const [userUpdate, setUserUpdate] = useState({
     first_name:"",
@@ -44,7 +58,7 @@ function EditProfile() {
   },[apiUser])
 
 
-  const updateUser = function(){
+  const updateUser = function() {
   const {afsc_code, afsc_title, base, cc_user_id,
     office_symbol, street_address, zipcode,
     unit_name, state, fb_uid, is_admin, id, ...user} = userUpdate
@@ -55,11 +69,44 @@ function EditProfile() {
     })
   }
 
+  const handleCloseDialog = () => {
+    setTimeout(() => {
+      setOpenDialog(false);
+    }, 500);
+  }
+
+  const handleSubmitPhoto = () => {
+    updatePhoto(photoUrl)
+    handleCloseDialog();
+  }
+
+  const handleCancelPhoto = () => {
+    handleCloseDialog();
+  }
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-       <Typography variant='h1'>
-      Edit Profile
+      <Typography variant='overline' sx={{fontSize: 48}}>
+        Edit Profile
       </Typography>
+      <Badge
+        overlap="circular"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        badgeContent={
+          <IconButton onClick={() => setOpenDialog(true)}>
+            <SettingsIcon />
+          </IconButton>
+        }
+        sx={{mt: 2, mb: 5}}
+      >
+        <Avatar
+          component={Paper}
+          elevation={4}
+          alt={`${firebaseUser.email}`}
+          src={firebaseUser?.photoURL}
+          sx={{ height: '200px', width: '200px' }}
+        />
+      </Badge>
       <Grid container spacing={2} width={"1000px"} justifyContent="center" >
         <Grid item xs={4}>
           <TextField variant='outlined' fullWidth value={userUpdate?.first_name} label='First Name'
@@ -133,6 +180,28 @@ function EditProfile() {
           <Button variant='contained' onClick={updateUser}>Update Profile</Button>
         </Grid>
       </Grid>
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Profile Photo</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To change your profile photo, please enter a link to the image.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Image URL"
+            type="url"
+            fullWidth
+            variant="standard"
+            onChange={(event) => setPhotoUrl(event.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelPhoto}>Cancel</Button>
+          <Button onClick={handleSubmitPhoto}>Submit</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

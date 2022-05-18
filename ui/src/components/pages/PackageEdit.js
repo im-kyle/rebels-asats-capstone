@@ -20,6 +20,9 @@ function PackageEdit(){
     getPackages()
   },[])
 
+  useEffect(()=>{
+    console.log(draft)
+  },[draft])
 
   useEffect(()=>{
     if(apiUser !== null && allPackages.length !== 0){
@@ -80,7 +83,7 @@ function PackageEdit(){
   }
 
   return(
-    <Box align='center'>
+    <Box display='flex' justifyContent='center'>
       <Grid container justifyContent='center' alignItems='center' maxWidth='1000px' spacing={2}>
         <Grid item xs={12} align='center'>
           <Typography variant='h5'>NOMINATION FOR AWARD</Typography>
@@ -108,6 +111,7 @@ function PackageEdit(){
             <Grid item xs={3}>
               <TextField
                 fullWidth
+                disabled = {draft?.user_id !== apiUser?.id}
                 variant='outlined'
                 label="AWARD PERIOD"
               />
@@ -187,7 +191,8 @@ function PackageEdit(){
           </React.Fragment>
           :
           <React.Fragment>
-            <Grid item xs={12}>
+            <Grid item xs={12} >
+            <Typography align='center' variant='h5' color='primary'>SPECIFIC ACCOMPLISHMENTS</Typography>
               <Typography color='secondary'>{draft.award_text}</Typography>
             </Grid>
             <Grid item xs={12}>
