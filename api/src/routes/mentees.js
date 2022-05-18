@@ -10,7 +10,7 @@ router.get('/:id', (request, response) => {
       response.status(200).json(data);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
 });

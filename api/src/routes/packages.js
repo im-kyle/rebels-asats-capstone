@@ -10,7 +10,7 @@ router
         response.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         throw err;
       });
   })
@@ -23,7 +23,7 @@ router
         response.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         throw err;
       });
   })
@@ -33,7 +33,7 @@ router
         response.status(201).json(data);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         throw err;
       });
   })
@@ -43,7 +43,7 @@ router
       response.status(201).json(data);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
   })
@@ -53,7 +53,7 @@ router
       response.status(200).json(data);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
   })

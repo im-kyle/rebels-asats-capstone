@@ -12,7 +12,17 @@ router
         response.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
+        throw err;
+      });
+  })
+  .get('/', (request, response) => {
+    db.select("*").from('users_mentors')
+      .then(data => {
+        response.status(200).json(data);
+      })
+      .catch(err => {
+        console.error(err);
         throw err;
       });
   })
@@ -22,7 +32,7 @@ router
         response.status(201).json(data[0]);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         throw err;
       });
   })
@@ -32,7 +42,7 @@ router
       response.status(201).json(data[0]);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
   })
@@ -42,7 +52,7 @@ router
       response.status(200).json(data[0]);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
   })

@@ -1,6 +1,6 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
@@ -8,8 +8,8 @@ exports.seed = async function(knex) {
   await knex('awards').insert([
     {title: 'Junior Enlisted - Airman/Guardian of the Quarter', description: 'A quarterly award presented to a single outstanding airman/guardian in the junior enlisted tier.', is_equal_opportunity_award: false, requirements_id: 1},
     {title: 'Junior Enlisted - Airman/Guardian of the Year', description: 'An annual award presented to a single outstanding airman/guardian in the junior enlisted tier.', is_equal_opportunity_award: false, requirements_id: 1},
-    {title: 'NCO - Airman/Guadian of the Quarter', description: 'A quarterly award presented to a single outstanding airman/guardian in the NCO tier.', is_equal_opportunity_award: false, requirements_id: 2},
-    {title: 'NCO - Airman/Guadian of the Year', description: 'An annual award presented to a single outstanding airman/guardian in the NCO tier.', is_equal_opportunity_award: false, requirements_id: 2},
+    {title: 'NCO - Airman/Guardian of the Quarter', description: 'A quarterly award presented to a single outstanding airman/guardian in the NCO tier.', is_equal_opportunity_award: false, requirements_id: 2},
+    {title: 'NCO - Airman/Guardian of the Year', description: 'An annual award presented to a single outstanding airman/guardian in the NCO tier.', is_equal_opportunity_award: false, requirements_id: 2},
     {title: 'SNCO - Airman/Guardian of the Quarter', description: 'A quarterly award presented to a single outstanding airman/guardian in the SNCO tier.', is_equal_opportunity_award: false, requirements_id: 3},
     {title: 'SNCO - Airman/Guardian of the Year', description: 'An annual award presented to a single outstanding airman/guardian in the SNCO tier.', is_equal_opportunity_award: false, requirements_id: 3},
     {title: 'CGO - Airman/Guardian of the Quarter', description: 'A quarterly award presented to a single outstanding airman/guardian in the CGO tier.', is_equal_opportunity_award: false, requirements_id: 4},
