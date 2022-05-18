@@ -62,7 +62,6 @@ const Signup = () => {
           onChange={formik.handleChange}
           onKeyUp={e => {
             if (e.code === 'Tab') {
-              console.log(e)
               inputRef.current.focus();
             }
           }}

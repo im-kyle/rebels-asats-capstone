@@ -9,13 +9,15 @@ import {
   InputLabel,
   FormControl
 } from '@mui/material';
+import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useApi } from '../../contexts/ApiContext';
 import { Box } from '@mui/system';
 
 function EditProfile() {
-  const { apiUser, units, getUnits, apiUrl, getAfscs, afscs } = useApi()
-  
+  const { apiUser, getApiUser,  units, getUnits, apiUrl, getAfscs, afscs } = useApi()
+  const navigate = useNavigate()
+
   const [userUpdate, setUserUpdate] = useState({
     first_name:"",
     last_name:"",
@@ -41,15 +43,15 @@ function EditProfile() {
     }
   },[apiUser])
 
-  
+
   const updateUser = function(){
-    console.log(userUpdate)
-    let user = {...userUpdate}
-    delete user.code
-    delete user.title
+  const {afsc_code, afsc_title, base, cc_user_id,
+    office_symbol, street_address, zipcode,
+    unit_name, state, fb_uid, is_admin, id, ...user} = userUpdate
     axios.patch(`${apiUrl}/users/${apiUser.id}`, user)
     .then(data =>{
-      console.log(data)
+      getApiUser()
+      navigate("/dashboard")
     })
   }
 

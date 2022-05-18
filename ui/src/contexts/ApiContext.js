@@ -29,10 +29,7 @@ export function ApiProvider({ children }) {
 
   useEffect(()=>{
     if(firebaseUser !== null && apiPosted){
-      axios.get(`${apiUrl}/users?fb_uid=${firebaseUser.uid}`)
-      .then(data =>{
-        setApiUser(data.data[0])
-      })
+      getApiUser()
     }
   }, [firebaseUser, apiPosted])
 
@@ -54,6 +51,12 @@ export function ApiProvider({ children }) {
     return axios.get(`${apiUrl}/afscs`)
       .then((data)=>{
         setAfscs(data.data)
+      })
+  }
+  function getApiUser(){
+    axios.get(`${apiUrl}/users?fb_uid=${firebaseUser.uid}`)
+      .then(data =>{
+        setApiUser(data.data[0])
       })
   }
 
@@ -97,7 +100,6 @@ export function ApiProvider({ children }) {
   function getMentees(id) {
     axios.get(`${apiUrl}/users/mentors/${id}`)
     .then((data) =>{
-      // console.log('mentees data:', data.data)
       setMentees(data.data);
     })
   }
@@ -164,18 +166,14 @@ export function ApiProvider({ children }) {
     )
   }
 
-  // function filterMenteePackages(){
-  //   setFilteredMenteesPackages(
-  //     menteePackages.filter(p => {
-        //if mentee ID === selected -> return true)
-        //return false;
-  //     })
-  //   )
-  // }
+  function filterMenteePackages(){
+  }
+
 
   const value = {
     apiUrl,
     apiUser,
+    getApiUser,
     setApiUser,
     allAwards,
     getAwards,

@@ -22,6 +22,9 @@ export function ColorModeThemeProvider({ children }) {
       primary: {
         main: mode === 'light' ? '#0F044C' : '#787A91',
       },
+      secondary: {
+        main: mode === 'light' ? '#141E61' : '#EEEEEE',
+      },
     },
 
     typography: {

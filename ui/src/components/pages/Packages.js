@@ -27,7 +27,6 @@ function Packages() {
     <Box>
       <Grid
         container
-
         direction="row"
         alignItems="center"
         justifyContent={'center'}
@@ -45,30 +44,29 @@ function Packages() {
 
         {filteredPackages.map((draft, i)=>{
           return(
-            <Grid item minWidth={"20vw"} maxWidth={"30vw"} key={i}>
+            <Grid item minWidth={"20vw"} maxWidth={"30vw"} sm={3} md={3} lg={2.5} xl={2} height={300} key={i}>
               <Card sx={{height: "100%"}}>
                 <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
                   <CardContent>
-                    <Typography variant='h5'>{draft.title}</Typography>
+                    <Typography variant='h5'>{draft.title.length > 50 ? `${draft.title.slice(0,50)}...` : draft.title}</Typography>
                     <Typography variant='subtitle1'>Author: {draft.first_name} {draft.last_name}</Typography>
-                    <Typography variant='subtitle2'>Completed: {`${draft.is_completed}`}</Typography>
-                    <Typography variant='body'>{draft.award_text}</Typography>
+                    <Typography variant='body'>{draft.award_text.length > 100 ? `${draft.award_text.slice(0,100)}...` : draft.award_text}</Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>
             </Grid>
           )
         })}
+
         {menteesPackages.map((draft, i)=>{
           return(
-            <Grid item minWidth={"20vw"} maxWidth={"30vw"} key={i}>
+            <Grid item minWidth={"20vw"} maxWidth={"30vw"} sm={3} md={3} lg={2.5} xl={2} height={300} key={i}>
               <Card sx={{height: "100%"}}>
                 <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
                   <CardContent>
-                    <Typography variant='h5'>{draft.title}</Typography>
+                    <Typography variant='h5'>{draft.title.length > 50 ? `${draft.title.slice(0,50)}...` : draft.title}</Typography>
                     <Typography variant='subtitle1'>Author: {draft.first_name} {draft.last_name}</Typography>
-                    <Typography variant='subtitle2'>Completed: {`${draft.is_completed}`}</Typography>
-                    <Typography variant='body'>{draft.award_text}</Typography>
+                    <Typography variant='body'>{draft.award_text.length > 100 ? `${draft.award_text.slice(0,100)}...` : draft.award_text}</Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>

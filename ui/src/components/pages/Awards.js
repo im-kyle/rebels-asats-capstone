@@ -24,7 +24,6 @@ function Awards() {
     <Box>
       <Grid
         container
-
         direction="row"
         alignItems="center"
         justifyContent={'center'}

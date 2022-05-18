@@ -43,7 +43,7 @@ const Login = () => {
         setError('');
         navigate('/dashboard');
       } catch (error) {
-        console.log(error)
+        console.error(error)
         setError('Incorrect login credentials.');
       }
     },
@@ -68,7 +68,6 @@ const Login = () => {
           onChange={formik.handleChange}
           onKeyUp={e => {
             if (e.code === 'Tab') {
-              console.log(e)
               inputRef.current.focus();
             }
           }}

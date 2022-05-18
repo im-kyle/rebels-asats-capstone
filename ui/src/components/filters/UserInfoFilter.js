@@ -24,7 +24,7 @@ function UserInfoFilter() {
         <h3>{`${apiUser?.first_name} ${apiUser?.last_name}`}</h3>
         <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
           <li key='rank'>Rank: {apiUser?.rank_grade} </li>
-          <li key='afsc'>AFSC: {apiUser?.code} - {apiUser?.title}</li>
+          <li key='afsc'>AFSC: {apiUser?.afsc_code} - {apiUser?.afsc_title}</li>
           <li key='duty'>Duty Title: {apiUser?.duty_title}</li>
           <li key='org'>Organization: {apiUser?.majcom_foa_dru}</li>
         </ul>
