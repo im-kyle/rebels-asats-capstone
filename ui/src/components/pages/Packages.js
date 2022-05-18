@@ -47,7 +47,7 @@ function Packages() {
           return(
             <Grid item minWidth={"20vw"} maxWidth={"30vw"} sm={3} md={3} lg={2.5} xl={2} height={300} key={i}>
               <Card sx={{height: "100%"}}>
-                <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
+                <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`/edit-package/${draft.id}`)}}>
                   <CardContent>
                     <Typography variant='h5'>{draft.title.length > 50 ? `${draft.title.slice(0,50)}...` : draft.title}</Typography>
                     <Typography variant='subtitle1'>Author: {draft.first_name} {draft.last_name}</Typography>
@@ -63,7 +63,7 @@ function Packages() {
           return(
             <Grid item minWidth={"20vw"} maxWidth={"30vw"} sm={3} md={3} lg={2.5} xl={2} height={300} key={i}>
               <Card sx={{height: "100%"}}>
-                <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`${draft.id}`)}}>
+                <CardActionArea sx={{height: "100%"}} onClick={()=>{navigate(`/edit-package/${draft.id}`)}}>
                   <CardContent>
                     <Typography variant='h5'>{draft.title.length > 50 ? `${draft.title.slice(0,50)}...` : draft.title}</Typography>
                     <Typography variant='subtitle1'>Author: {draft.first_name} {draft.last_name}</Typography>

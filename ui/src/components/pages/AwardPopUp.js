@@ -54,10 +54,11 @@ function AwardPopUp() {
     axios.post(`${apiUrl}/packages`, {user_id: apiUser.id,
       award_id: award.id,
       award_text: '',
+      award_period: '',
       comments: '',
       is_completed: false})
       .then(data=>{
-        navigate(`/packages/${data.data[0].id}`)
+        navigate(`/edit-package/${data.data[0].id}`)
       })
   }
 

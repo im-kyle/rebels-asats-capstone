@@ -71,9 +71,6 @@ export function ApiProvider({ children }) {
     }
   },[mentees])
 
-  useEffect(()=>{
-    console.log(filteredMenteesPackages)
-  },[filteredMenteesPackages])
 
   function getAfscs() {
     return axios.get(`${apiUrl}/afscs`)
@@ -97,8 +94,8 @@ export function ApiProvider({ children }) {
       axios.get(`${apiUrl}/packages/${apiUser.id}`)
       .then((data)=>{
         let combinedData = []
-        for(let pack of data.data){
-          combinedData.push({...pack, first_name: apiUser.first_name ,last_name: apiUser.last_name})
+        for (let pack of data.data) {
+          combinedData.push({...pack, first_name: apiUser.first_name, last_name: apiUser.last_name})
         }
         setAllPackages(combinedData)
         setFilteredPackages(combinedData)
@@ -168,13 +165,12 @@ export function ApiProvider({ children }) {
     if (updatedFilter.afsc) afscFilter.current = updatedFilter.afsc;
     const afscFilterEmpty = afscFilter.current.length === 0;
 
-    if (updatedFilter.eo) eoFilter.current = updatedFilter.eo;
+    if (updatedFilter.eo !== undefined) eoFilter.current = updatedFilter.eo;
 
     setFilteredAwards(
       allAwards.filter(award => {
-        if (!eoFilter.current) {
+        if (eoFilter.current && !award.is_equal_opportunity_award) return false
 
-        }
         for (const rank in rankFilter.current) {
           if (!rankFilter.current[rank]) continue;
           if (award.rank_category === rank) return true;
@@ -182,10 +178,6 @@ export function ApiProvider({ children }) {
 
         for (const afsc of afscFilter.current) {
           if (award.afscs_code === afsc.code) return true;
-        }
-
-        if ( && award.is_equal_opportunity_award) {
-
         }
 
         if (rankFilterEmpty && afscFilterEmpty) {
@@ -208,7 +200,7 @@ export function ApiProvider({ children }) {
   }
 
   async function filterMenteePackages(selected) {
-    setFilteredMenteesPackages(menteesPackages.filter((pack => selected[pack.user_id] && pack.is_completed)))
+    setFilteredMenteesPackages(menteesPackages.filter((pack => selected[pack?.user_id] && !pack?.is_completed)))
   }
 
 

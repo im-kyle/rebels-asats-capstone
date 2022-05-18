@@ -19,7 +19,7 @@ function PackagesReviewFilter() {
   }, [mentees])
 
   React.useEffect(() => {
-    if(menteesPackages.length !== 0 ) {
+    if(menteesPackages.length !== 0 && selected !== null ) {
       filterMenteePackages(selected)
     }
   }, [selected, menteesPackages])

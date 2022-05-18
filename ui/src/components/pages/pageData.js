@@ -42,6 +42,12 @@ const pageData = {
       <React.Fragment key={0}/>,
     ]
   },
+  'edit-package': {
+    sideBar: false,
+    filters: [
+      <React.Fragment key={0}/>,
+    ]
+  },
 }
 
 export default pageData;

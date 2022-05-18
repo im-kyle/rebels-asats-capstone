@@ -11,9 +11,11 @@ function PackageEdit(){
   const packageID = location.pathname.split("/")[2]
   const { allPackages, apiUser, commander, getPackages, menteesPackages, apiUrl } = useApi();
   const [draft, setDraft] = useState({
+    title: "",
     award_text:"",
     comments:"",
     is_completed: false,
+    award_period: ""
   })
 
   useEffect(()=>{
@@ -38,7 +40,6 @@ function PackageEdit(){
   }
 
   const updatePackage = function(){
-
     let postDraft = {...draft}
     delete postDraft.description
     delete postDraft.requirements_id
@@ -47,10 +48,8 @@ function PackageEdit(){
     delete postDraft.last_name
     delete postDraft.is_equal_opportunity_award
     delete postDraft.mentor_id
-    console.log(postDraft)
     axios.patch(`${apiUrl}/packages/${draft.id}`, postDraft)
-    .then(data =>{
-      console.log(data)
+    .then(data => {
       navigate("/packages")
     })
     .catch(err => console.log(err))
@@ -83,13 +82,12 @@ function PackageEdit(){
   }
 
   return(
-    <Box display='flex' justifyContent='center'>
+    apiUser &&
+      <Box display='flex' justifyContent='center'>
       <Grid container justifyContent='center' alignItems='center' maxWidth='1000px' spacing={2}>
         <Grid item xs={12} align='center'>
           <Typography variant='h5'>NOMINATION FOR AWARD</Typography>
         </Grid >
-
-
             <Grid item xs={6}>
               <TextField
                 fullWidth
@@ -114,6 +112,8 @@ function PackageEdit(){
                 disabled = {draft?.user_id !== apiUser?.id}
                 variant='outlined'
                 label="AWARD PERIOD"
+                value={draft.award_period}
+                onChange={(e) => setDraft({...draft, award_period: e.target.value})}
               />
             </Grid>
             <Grid item xs={7}>
@@ -161,15 +161,17 @@ function PackageEdit(){
                 value={`${apiUser?.unit_name}/${apiUser?.office_symbol}/${apiUser?.street_address}/${apiUser?.base}/${apiUser?.state}/${apiUser?.zipcode}`}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                disabled
-                variant='outlined'
-                label="RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last)/COMMANDER'S TELEPHONE (DSN & Commercial)"
-                value={`${commander?.rank_grade}/${commander?.first_name} ${commander?.middle_initial}. ${commander?.last_name}/DSN: ${commander?.phone_dsn} & COMM: ${commander?.phone_comm}`}
-              />
-            </Grid>
+            {commander &&
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  disabled
+                  variant='outlined'
+                  label="RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last)/COMMANDER'S TELEPHONE (DSN & Commercial)"
+                  value={`${commander?.rank_grade}/${commander?.first_name} ${commander?.middle_initial}. ${commander?.last_name}/DSN: ${commander?.phone_dsn} & COMM: ${commander?.phone_comm}`}
+                />
+              </Grid>
+            }
             {draft?.user_id === apiUser?.id ?
             <React.Fragment>
             <Grid item xs={12}>
