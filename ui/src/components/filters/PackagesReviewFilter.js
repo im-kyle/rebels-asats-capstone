@@ -10,20 +10,21 @@ import {
 
 function PackagesReviewFilter() {
   const { mentees, menteesPackages, filterMenteePackages } = useApi();
-  const [selected, setSelected] = useState({checked: false, menteeID: 0});
+  const [selected, setSelected] = useState(null)
 
   React.useEffect(() => {
-    console.log('mentees:', mentees);
-    console.log('mentees packages:', menteesPackages);
-  }, [])
+    if(mentees.length !== 0) {
+      setSelected(mentees.reduce((acc, mentee) => ({...acc, [mentee.user_id]: false}), {}))
+    }
+  }, [mentees])
 
   React.useEffect(() => {
-    //filterMenteePackages(selected)
+    filterMenteePackages(selected)
+    console.log('selected', selected)
   }, [selected])
 
-  const handleMenteePackageFilter = (mentee) => {
-    setSelected({...selected, checked: true, menteeID: mentee.target.value})
-    console.log(selected);
+  const handleMenteePackageFilter = (event, mentee) => {
+    setSelected({...selected, [mentee.user_id]: event.target.checked})
   }
 
   return (
@@ -35,17 +36,20 @@ function PackagesReviewFilter() {
         </Typography>
       </Grid>
 
-      {mentees.map((mentee) => {
+      {selected && mentees.map((mentee) => {
         return (
+
           <Grid item key={mentee?.user_id}>
+
             <FormGroup>
-              <FormControlLabel control={<Checkbox onChange={handleMenteePackageFilter}
-              defaultChecked={false}
-              checked={true}
-              value={mentee.user_id}/>}
-              label={mentee?.last_name}
-              />
+              <FormControlLabel
+                control={<Checkbox
+                onChange={(event) => handleMenteePackageFilter(event, mentee)}
+                checked={selected[mentee.user_id]}
+                />}
+                label={mentee?.last_name}/>
             </FormGroup>
+
           </Grid>
         )
       })}

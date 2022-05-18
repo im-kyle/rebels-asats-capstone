@@ -2,6 +2,8 @@ import React from 'react';
 import {
   Typography,
   Paper,
+  List,
+  ListItem,
   Grid,
   Box,
   Button,
@@ -20,10 +22,10 @@ function CarouselItem (props) {
   return (
     <Paper>
       <h3>{props.item.title}</h3>
-      <ul>
-        <li>Nominee: {props.item.first_name} {props.item.last_name}</li>
-        <li>Description: {props.item.description}</li>
-      </ul>
+      <List>
+        <ListItem>Nominee: {props.item.first_name} {props.item.last_name}</ListItem>
+        <ListItem>Description: {props.item.description}</ListItem>
+      </List>
       <Grid item xs={12} align='center'>
         <Button variant="outlined" onClick={openPackage}>Resume Editing</Button>
       </Grid>
@@ -59,24 +61,38 @@ function Dashboard() {
           </Typography>
         </Grid>
       </Grid>
-      <Carousel height="192px" animation="slide">
-        {
-          filteredPackages.map((item, index) => {
-            return (
-              <CarouselItem key={index} item={item}/>
-            );
-          })
-        }
-      </Carousel>
-      <Carousel height="128px" animation="slide">
-        {
-          menteesPackages.map((item, index) => {
-            return (
-              <CarouselItem key={index} item={item}/>
-            );
-          })
-        }
-      </Carousel>
+      {
+        filteredPackages.length ?
+          <Carousel height="256px" animation="slide" autoPlay={false}>
+            {
+              filteredPackages.map((item, index) => {
+                return (
+                  <CarouselItem key={index} item={item}/>
+                );
+              })
+            }
+          </Carousel>
+        :
+          <Grid item xs={12} align='center'>
+            <p>You have no active packages.</p>
+          </Grid>
+      }
+      {
+        menteesPackages.length ?
+          <Carousel height="256px" animation="slide" autoPlay={false}>
+            {
+              menteesPackages.map((item, index) => {
+                return (
+                  <CarouselItem key={`${index}m`} item={item}/>
+                );
+              })
+            }
+          </Carousel>
+        :
+          <Grid item xs={12} align='center'>
+            <p>Your mentees have no active packages.</p>
+          </Grid>
+      }
     </Box>
   )
 }

@@ -23,7 +23,7 @@ beforeEach(()=>{
     <BrowserRouter>
       <ColorModeThemeProvider>
         <Awards />
-      </ColorModeThemeProvider> 
+      </ColorModeThemeProvider>
     </BrowserRouter>
     )
 })

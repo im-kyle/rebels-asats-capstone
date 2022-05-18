@@ -14,12 +14,13 @@ import {useNavigate } from 'react-router-dom';
 
 function Packages() {
 
-  const {allPackages, filteredPackages, menteesPackages, getPackages, apiUser, mentees} = useApi();
+  const {allPackages, filteredPackages, menteesPackages, getMenteesPackages, getPackages, apiUser, mentees} = useApi();
   const navigate = useNavigate()
 
   useEffect(()=> {
     if(apiUser !== null){
       getPackages()
+      getMenteesPackages()
     }
   },[apiUser])
 

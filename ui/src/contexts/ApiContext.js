@@ -22,14 +22,37 @@ export function ApiProvider({ children }) {
   const afscFilter = React.useRef([]);
   const [afscs, setAfscs] = React.useState([]);
   const [units, setUnits] = React.useState([]);
+  const [commander, setCommander] = React.useState(null);
   const [mentors, setMentors] = React.useState([]);
   const [mentees, setMentees] = React.useState([]);
   const [filteredMenteesPackages, setFilteredMenteesPackages] = React.useState([]);
+  const [menteePackagesReviewFilter, setMenteePackagesReviewFilter] = React.useState([]);
   const [menteesPackages, setMenteesPackages] = React.useState([]);
+
+  function resetState() {
+    setApiUser(null);
+    setAllAwards([]);
+    setFilteredAwards([]);
+    setAllPackages([]);
+    setFilteredPackages([]);
+    rankFilter.current = null;
+    afscFilter.current = [];
+    setAfscs([]);
+    setUnits([]);
+    setCommander(null);
+    setMentors([]);
+    setMentees([]);
+    setFilteredMenteesPackages([]);
+    setMenteesPackages([]);
+  }
 
   useEffect(()=>{
     if(firebaseUser !== null && apiPosted){
       getApiUser()
+    }
+
+    if(firebaseUser === null) {
+      resetState();
     }
   }, [firebaseUser, apiPosted])
 
@@ -57,6 +80,10 @@ export function ApiProvider({ children }) {
     axios.get(`${apiUrl}/users?fb_uid=${firebaseUser.uid}`)
       .then(data =>{
         setApiUser(data.data[0])
+        axios.get(`${apiUrl}/users/${data.data[0].cc_user_id}`)
+          .then(data => {
+            setCommander(data.data);
+          })
       })
   }
 
@@ -166,7 +193,16 @@ export function ApiProvider({ children }) {
     )
   }
 
-  function filterMenteePackages(){
+  async function filterMenteePackages(selected) {
+    let arr = [];
+    if(selected) {
+      arr.push(Object.entries(selected))
+        let filteredMenteeArr = arr.map((mentee) => {
+          if (mentee[1] == true) return true
+          return filteredMenteeArr;
+        })
+          console.log('filteredMentees:', arr);
+    }
   }
 
 
@@ -174,7 +210,7 @@ export function ApiProvider({ children }) {
     apiUrl,
     apiUser,
     getApiUser,
-    setApiUser,
+    commander,
     allAwards,
     getAwards,
     filteredAwards,
@@ -191,6 +227,8 @@ export function ApiProvider({ children }) {
     mentees,
     getMentees,
     getMenteesPackages,
+    filterMenteePackages,
+    filteredMenteesPackages,
     menteesPackages
   };
 

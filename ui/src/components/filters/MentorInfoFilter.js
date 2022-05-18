@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import config from '../../config';
 import { useApi } from '../../contexts/ApiContext';
-import { Box, Typography } from '@mui/material';
+import { Box, List, ListItem, Typography } from '@mui/material';
 
 function MentorsFilter() {
   const apiUrl = config[process.env.NODE_ENV || "development"].apiUrl;
@@ -17,19 +17,19 @@ function MentorsFilter() {
       <Typography variant='h6'>
         Mentors:
       </Typography>
-      <ul>
+      <List>
         {mentors.map(user => {
-          return (<li key={user.user_id}>{`${user.first_name} ${user.last_name}`}</li>);
+          return (<ListItem key={user.user_id}>{`${user.first_name} ${user.last_name}`}</ListItem>);
         })}
-      </ul>
+      </List>
       <Typography variant='h6'>
         Mentees:
       </Typography>
-      <ul>
+      <List>
         {mentees.map(user => {
-          return (<li key={user.user_id}>{`${user.first_name} ${user.last_name}`}</li>);
+          return (<ListItem key={user.user_id}>{`${user.first_name} ${user.last_name}`}</ListItem>);
         })}
-      </ul>
+      </List>
     </Box>
   )
 }

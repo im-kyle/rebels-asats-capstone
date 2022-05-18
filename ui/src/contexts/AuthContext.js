@@ -53,9 +53,9 @@ export function AuthProvider({ children }) {
   //   return currentUser.updatePassword(password);
   // }
 
-  // function updatePhoto(url) {
-  //   return currentUser.updateProfile({photoURL: url});
-  // }
+  function updatePhoto(url) {
+    return firebaseUser.updateProfile({photoURL: url});
+  }
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -75,7 +75,7 @@ export function AuthProvider({ children }) {
     // resetPassword,
     // updateEmail,
     // updatePassword,
-    // updatePhoto,
+    updatePhoto,
   };
 
   return (

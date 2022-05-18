@@ -34,6 +34,12 @@ export function ColorModeThemeProvider({ children }) {
           'cursive',
         ].join(','),
       },
+      body2: {
+        fontFamily: [
+          'Source Code Pro',
+          'monospace',
+        ].join(','),
+      },
     },
   }), [mode]);
 

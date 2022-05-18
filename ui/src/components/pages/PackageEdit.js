@@ -9,7 +9,7 @@ function PackageEdit(){
   const location = useLocation();
   const navigate = useNavigate();
   const packageID = location.pathname.split("/")[2]
-  const { allPackages, apiUser, getPackages, menteesPackages, apiUrl } = useApi();
+  const { allPackages, apiUser, commander, getPackages, menteesPackages, apiUrl } = useApi();
   const [draft, setDraft] = useState({
     award_text:"",
     comments:"",
@@ -35,6 +35,7 @@ function PackageEdit(){
   }
 
   const updatePackage = function(){
+
     let postDraft = {...draft}
     delete postDraft.description
     delete postDraft.requirements_id
@@ -42,10 +43,14 @@ function PackageEdit(){
     delete postDraft.first_name
     delete postDraft.last_name
     delete postDraft.is_equal_opportunity_award
+    delete postDraft.mentor_id
+    console.log(postDraft)
     axios.patch(`${apiUrl}/packages/${draft.id}`, postDraft)
     .then(data =>{
+      console.log(data)
       navigate("/packages")
     })
+    .catch(err => console.log(err))
   }
 
   const getCurrentPackage = function(){
@@ -75,13 +80,13 @@ function PackageEdit(){
   }
 
   return(
-    <Box >
+    <Box align='center'>
       <Grid container justifyContent='center' alignItems='center' maxWidth='1000px' spacing={2}>
         <Grid item xs={12} align='center'>
           <Typography variant='h5'>NOMINATION FOR AWARD</Typography>
-        </Grid>
-        {draft?.user_id === apiUser?.id ?
-          <React.Fragment>
+        </Grid >
+
+
             <Grid item xs={6}>
               <TextField
                 fullWidth
@@ -140,17 +145,16 @@ function PackageEdit(){
                 disabled
                 variant='outlined'
                 label="NOMINEE's TELEPHONE (DSN & Commercial)"
-                value={`DSN: ${apiUser?.phone_dsn} COMM: ${apiUser?.phone_comm}`}
+                value={`DSN: ${apiUser?.phone_dsn} & COMM: ${apiUser?.phone_comm}`}
               />
             </Grid>
             <Grid item xs={12}>
-              {console.log(apiUser)}
               <TextField
                 fullWidth
                 disabled
                 variant='outlined'
                 label="UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE"
-                value={`${apiUser?.unit_name}/${apiUser?.office_symbol}/`}
+                value={`${apiUser?.unit_name}/${apiUser?.office_symbol}/${apiUser?.street_address}/${apiUser?.base}/${apiUser?.state}/${apiUser?.zipcode}`}
               />
             </Grid>
             <Grid item xs={12}>
@@ -159,8 +163,11 @@ function PackageEdit(){
                 disabled
                 variant='outlined'
                 label="RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last)/COMMANDER'S TELEPHONE (DSN & Commercial)"
+                value={`${commander?.rank_grade}/${commander?.first_name} ${commander?.middle_initial}. ${commander?.last_name}/DSN: ${commander?.phone_dsn} & COMM: ${commander?.phone_comm}`}
               />
             </Grid>
+            {draft?.user_id === apiUser?.id ?
+            <React.Fragment>
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -196,16 +203,16 @@ function PackageEdit(){
           </React.Fragment>
         }
         <Grid item xs={3}>
-        <FormControlLabel label="Complete"  control={
+        {draft?.user_id === apiUser?.id &&<FormControlLabel label="Complete"  control={
           <Checkbox checked={draft.is_completed} onChange={(e)=> setDraft({...draft, is_completed: e.target.checked})}/>}
-        />
+        />}
         </Grid>
         <Grid item xs={3}>
           <Button variant='contained' onClick={updatePackage}>Update</Button>
         </Grid>
-        <Grid item xs={3}>
+        {draft?.user_id === apiUser?.id && <Grid item xs={3}>
           <Button variant='contained' color="error" onClick={deletePackage}>Delete</Button>
-        </Grid>
+        </Grid>}
       </Grid>
     </Box>
   )
