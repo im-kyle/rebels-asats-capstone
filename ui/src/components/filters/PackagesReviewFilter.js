@@ -1,5 +1,5 @@
 import { useApi } from '../../contexts/ApiContext';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   Grid,

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Typography,
   Paper,
@@ -31,15 +33,14 @@ function CarouselItem (props) {
       </Grid>
     </Paper>
   );
+}
+
+CarouselItem.propTypes = {
+  item: PropTypes.object.isRequired,
 };
 
 function Dashboard() {
   const { filteredPackages, menteesPackages } = useApi();
-
-  React.useEffect(() => {
-    console.log("User's packages:", filteredPackages);
-    console.log("Mentees' packages:", menteesPackages);
-  }, [])
 
   return (
     <Box>

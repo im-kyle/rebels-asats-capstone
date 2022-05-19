@@ -23,10 +23,6 @@ function PackageEdit(){
   },[])
 
   useEffect(()=>{
-    console.log(draft)
-  },[draft])
-
-  useEffect(()=>{
     if(apiUser !== null && allPackages.length !== 0){
       getCurrentPackage()
     }
@@ -34,7 +30,7 @@ function PackageEdit(){
 
   const deletePackage = function(){
     axios.delete(`${apiUrl}/packages/${draft.id}`)
-    .then(data =>{
+    .then(() =>{
       navigate("/packages")
     })
   }
@@ -49,10 +45,9 @@ function PackageEdit(){
     delete postDraft.is_equal_opportunity_award
     delete postDraft.mentor_id
     axios.patch(`${apiUrl}/packages/${draft.id}`, postDraft)
-    .then(data => {
+    .then(() => {
       navigate("/packages")
     })
-    .catch(err => console.log(err))
   }
 
   const getCurrentPackage = function(){
@@ -185,7 +180,7 @@ function PackageEdit(){
               />
               <React.Fragment>
               <Grid item xs={12} align='center'>
-                <Typography variant='h5' color='primary'>Your Mentor's Comments</Typography>
+                <Typography variant='h5' color='primary'>{'Your Mentor\'s Comments'}</Typography>
                 <Typography variant='paragraph' color='primary'>{draft.comments}</Typography>
               </Grid>
               </React.Fragment>

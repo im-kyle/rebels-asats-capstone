@@ -1,11 +1,7 @@
 import { useApi } from '../../contexts/ApiContext';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import {
   Box,
-  TextField,
-  Autocomplete,
-  Typography,
   Switch,
   FormControlLabel,
   FormGroup

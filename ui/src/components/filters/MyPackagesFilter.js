@@ -1,5 +1,5 @@
-import { useApi, packages } from '../../contexts/ApiContext'
-import React, { useState, useEffect } from 'react';
+import { useApi } from '../../contexts/ApiContext'
+import React, { useState } from 'react';
 import {
   Typography,
   Grid,
@@ -8,10 +8,10 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-const filterOptions = ['Completed', 'In Draft']
+//const filterOptions = ['Completed', 'In Draft']
 
 function MyPackagesFilter() {
-  const { allPackages, getPackages, filterPackages } = useApi();
+  const { getPackages, filterPackages } = useApi();
   const [selected, setSelected] = useState({
     completed: true,
     inDraft: true,

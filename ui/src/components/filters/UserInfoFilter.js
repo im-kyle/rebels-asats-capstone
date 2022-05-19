@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Grid,
-  List,
-  ListItem,
   Badge,
   IconButton,
   Avatar,

@@ -14,7 +14,7 @@ import {useNavigate } from 'react-router-dom';
 
 function Packages() {
 
-  const {allPackages, filteredPackages, menteesPackages, getMenteesPackages, filteredMenteesPackages, getPackages, apiUser, mentees} = useApi();
+  const { filteredPackages, getMenteesPackages, filteredMenteesPackages, getPackages, apiUser } = useApi();
   const navigate = useNavigate()
 
   useEffect(()=> {

@@ -27,7 +27,7 @@ export function ApiProvider({ children }) {
   const [mentors, setMentors] = React.useState([]);
   const [mentees, setMentees] = React.useState([]);
   const [filteredMenteesPackages, setFilteredMenteesPackages] = React.useState([]);
-  const [menteePackagesReviewFilter, setMenteePackagesReviewFilter] = React.useState([]);
+  // const [menteePackagesReviewFilter, setMenteePackagesReviewFilter] = React.useState([]);
   const [menteesPackages, setMenteesPackages] = React.useState([]);
 
   function resetState() {

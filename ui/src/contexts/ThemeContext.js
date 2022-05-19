@@ -3,7 +3,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline,
 } from '@mui/material';
-import { indigo } from '@mui/material/colors';
 
 import PropTypes from 'prop-types';
 
