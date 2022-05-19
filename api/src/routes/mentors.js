@@ -47,7 +47,7 @@ router
     });
   })
   .delete('/', (request, response) => {
-    db('users_mentors').where('user_id', '=', request.query.user).andWhere('mentor_id', '=', request.query.mentor).delete('*')
+    db('users_mentors').where('user_id', '=', request.query.user).andWhere('mentor_id', '=', request.query.mentor).del()
     .then(data => {
       response.status(200).json(data[0]);
     })

@@ -119,18 +119,20 @@ export function ApiProvider({ children }) {
     })
   }
 
-  function getMentors(id) {
+  function getMentors(id, cb=()=>{}) {
     axios.get(`${apiUrl}/users/mentees/${id}`)
       .then(response => {
         setMentors(response.data);
       })
+      .then(() => cb())
   }
 
-  function getMentees(id) {
+  function getMentees(id, cb=()=>{}) {
     axios.get(`${apiUrl}/users/mentors/${id}`)
     .then((data) =>{
       setMentees(data.data);
     })
+    .then(() => cb())
   }
 
   async function getMenteesPackages(){
@@ -223,6 +225,7 @@ export function ApiProvider({ children }) {
     getUnits,
     mentors,
     mentees,
+    getMentors,
     getMentees,
     getMenteesPackages,
     filterMenteePackages,
