@@ -155,9 +155,9 @@ function MentorsFilter() {
                       </IconButton>
                     }
                   >
-                    <Avatar sx={{ height: '50px', width: '50px' }}>
+                    <WiggleAvatar sx={{ height: '50px', width: '50px' }}>
                       {`${user.first_name[0]}${user.last_name[0]}`}
-                    </Avatar>
+                    </WiggleAvatar>
                   </Badge>
                 </Tooltip>
               ))}
@@ -166,9 +166,9 @@ function MentorsFilter() {
             <AvatarGroup max={5} sx={{mt: 1}}>
               {mentees && mentees.map((user, i) => (
                 <Tooltip key={i} title={`${user.first_name} ${user.last_name}`}>
-                  <WiggleAvatar sx={{ height: '50px', width: '50px' }}>
+                  <Avatar sx={{ height: '50px', width: '50px' }}>
                     {`${user.first_name[0]}${user.last_name[0]}`}
-                  </WiggleAvatar>
+                  </Avatar>
                 </Tooltip>
               ))}
             </AvatarGroup>
