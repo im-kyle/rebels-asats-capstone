@@ -11,7 +11,6 @@ export function useApi() {
 }
 
 export function ApiProvider({ children }) {
-  console.log("environment", process.env.REACT_APP_NODE_ENV)
   const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
   const { firebaseUser, apiPosted } = useAuth();
   const [apiUser, setApiUser] = React.useState(null);
