@@ -47,7 +47,7 @@ exports.seed = async function(knex) {
     },
     {
       user_id: 9,
-      award_id: 31,
+      award_id: 32,
       award_text: '- Conducted 78 room insps; enforced health/wellness of 82 stdnts, $23M facility maintained; Sq/CC coined E-Flt \n' +
                   '- Inprocessed 83 BMT grads; dedicated 40 hrs instructing Amn on AF/AETC/local stds; equipped for intel trng \n' +
                   '- Supervised 85 formations; ensured 100% accountability of 629 stdnts; key to zero delays in Amn ISR tech trng \n' +

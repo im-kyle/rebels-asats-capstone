@@ -92,6 +92,7 @@ function PackageEdit(){
                 value={draft.title}
               />
             </Grid>
+            {draft?.user_id === apiUser?.id &&
             <Grid item xs={3}>
               <TextField
                 fullWidth
@@ -100,7 +101,7 @@ function PackageEdit(){
                 label="CATEGORY"
                 value={apiUser?.rank_category}
               />
-            </Grid>
+            </Grid>}
             <Grid item xs={3}>
               <TextField
                 fullWidth
@@ -111,6 +112,7 @@ function PackageEdit(){
                 onChange={(e) => setDraft({...draft, award_period: e.target.value})}
               />
             </Grid>
+            {draft?.user_id === apiUser?.id && <React.Fragment>
             <Grid item xs={7}>
               <TextField
                 fullWidth
@@ -167,6 +169,7 @@ function PackageEdit(){
                 />
               </Grid>
             }
+            </React.Fragment>}
             {draft?.user_id === apiUser?.id ?
             <React.Fragment>
             <Grid item xs={12}>
@@ -179,9 +182,9 @@ function PackageEdit(){
                 onChange={(e) => setDraft({...draft, award_text: e.target.value})}
               />
               <React.Fragment>
-              <Grid item xs={12} align='center'>
-                <Typography variant='h5' color='primary'>{'Your Mentor\'s Comments'}</Typography>
-                <Typography variant='paragraph' color='primary'>{draft.comments}</Typography>
+              <Grid item xs={12}>
+                <Typography align='center' variant='h5' color='primary'>{'Your Mentor\'s Comments'}</Typography>
+                <Typography textAlign="left" variant='paragraph' color='primary'>{draft.comments}</Typography>
               </Grid>
               </React.Fragment>
             </Grid>
@@ -189,8 +192,17 @@ function PackageEdit(){
           :
           <React.Fragment>
             <Grid item xs={12} >
-            <Typography align='center' variant='h5' color='primary'>SPECIFIC ACCOMPLISHMENTS</Typography>
-              <Typography color='secondary'>{draft.award_text}</Typography>
+              <Typography align='center' variant='h5' color='primary'>SPECIFIC ACCOMPLISHMENTS</Typography>
+              {/* <Typography color='secondary' style={{whiteSpace: 'pre-line'}}>{draft.award_text}</Typography> */}
+              <TextField
+                fullWidth
+                multiline
+                disabled
+                variant='outlined'
+                label="SPECIFIC ACCOMPLISHMENTS (Use single-spaced, bullet format)"
+                value={draft.award_text}
+                onChange={(e) => setDraft({...draft, award_text: e.target.value})}
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField
