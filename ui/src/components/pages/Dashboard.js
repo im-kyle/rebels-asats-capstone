@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import {
   Typography,
-  Paper,
   List,
   ListItem,
   Grid,
   Box,
+  Card,
   Button,
 } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
@@ -18,20 +18,20 @@ import { useApi } from '../../contexts/ApiContext';
 function CarouselItem (props) {
   const navigateTo = useNavigate();
   const openPackage = () => {
-    navigateTo(`/packages/${props.item.id}`);
+    navigateTo(`/edit-package/${props.item.id}`);
   };
 
   return (
-    <Paper>
-      <h3>{props.item.title}</h3>
+    <Card >
+      <Typography variant="h5" sx={{fontWeight: 'bold', p: 3}}>{props.item.title}</Typography>
       <List>
         <ListItem>Nominee: {props.item.first_name} {props.item.last_name}</ListItem>
         <ListItem>Description: {props.item.description}</ListItem>
       </List>
-      <Grid item xs={12} align='center'>
+      <Grid item xs={12} align='center' sx={{mb: 1}}>
         <Button variant="outlined" onClick={openPackage}>Resume Editing</Button>
       </Grid>
-    </Paper>
+    </Card>
   );
 }
 
@@ -46,7 +46,6 @@ function Dashboard() {
     <Box>
       <Grid
         container
-
         direction="row"
         alignItems="center"
         justifyContent={'center'}
@@ -62,37 +61,39 @@ function Dashboard() {
           </Typography>
         </Grid>
       </Grid>
-      {
-        filteredPackages.length ?
-          <Carousel height="256px" animation="slide" autoPlay={false}>
-            {
-              filteredPackages.map((item, index) => {
-                return (
-                  <CarouselItem key={index} item={item}/>
-                );
-              })
-            }
-          </Carousel>
-        :
-          <Grid item xs={12} align='center'>
-            <p>You have no active packages.</p>
-          </Grid>
+      <br/>
+      <Typography variant='h5'  style={{textDecoration: "underline"}} align="center">Your Packages</Typography>
+      {filteredPackages.length ?
+        <Carousel height="256px" animation="slide" autoPlay={false}>
+          {
+            filteredPackages.map((item, index) => {
+              return (
+                <CarouselItem key={index} item={item}/>
+              );
+            })
+          }
+        </Carousel>
+      :
+        <Grid item xs={12} align='center'>
+          <p>You have no active packages.</p>
+        </Grid>
       }
-      {
-        menteesPackages.length ?
-          <Carousel height="256px" animation="slide" autoPlay={false}>
-            {
-              menteesPackages.map((item, index) => {
-                return (
-                  <CarouselItem key={`${index}m`} item={item}/>
-                );
-              })
-            }
-          </Carousel>
+      <br/>
+      <Typography variant='h5' style={{textDecoration: "underline"}} align="center">Your Mentees Packages</Typography>
+      {menteesPackages.length ?
+        <Carousel height="256px" animation="slide" autoPlay={false}>
+          {
+            menteesPackages.map((item, index) => {
+              return (
+                <CarouselItem key={`${index}m`} item={item}/>
+              );
+            })
+          }
+        </Carousel>
         :
-          <Grid item xs={12} align='center'>
-            <p>Your mentees have no active packages.</p>
-          </Grid>
+        <Grid item xs={12} align='center'>
+          <p>Your mentees have no active packages.</p>
+        </Grid>
       }
     </Box>
   )

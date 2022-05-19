@@ -49,7 +49,7 @@ function UserInfoFilter() {
         direction="column"
         alignItems="center"
         justifyContent="space-between"
-        style={{ height: '50vh' }}
+        style={{ minHeight: '50vh' }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 5 }}>
           <Badge
