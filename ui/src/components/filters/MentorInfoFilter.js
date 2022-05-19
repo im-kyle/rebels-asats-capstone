@@ -15,10 +15,33 @@ import {
   IconButton,
   Dialog,
   DialogTitle,
+  Divider,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+
+const WiggleAvatar = styled(Avatar) ({
+  '@keyframes wiggle': {
+    '0%': {
+      transform: 'rotate(0deg)'
+    },
+    '25%': {
+      transform: 'rotate(-3deg)'
+    },
+    '50%': {
+      transform: 'rotate(5deg)'
+    },
+    '75%': {
+      transform: 'rotate(-1deg)'
+    },
+    '100%': {
+      transform: 'rotate(2deg)'
+    },
+  },
+  animation: "wiggle 1s infinite ease",
+});
 
 function MentorsFilter() {
   const { mentors, mentees, getMentors, getMentees, apiUrl, apiUser } = useApi();
@@ -67,8 +90,13 @@ function MentorsFilter() {
         alignItems="center"
         justifyContent="space-between"
       >
+        <Grid item sx={{marginLeft: 'auto', p: 1}}>
+          <IconButton onClick={() => setEdit(!edit)}>
+            <EditIcon />
+          </IconButton>
+        </Grid>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <Typography variant='h5' sx={{fontWeight: 'bold', mt: 5}}>
+          <Typography variant='h5' sx={{fontWeight: 'bold', mt: 3}}>
             Your Mentors
           </Typography>
           {edit ?
@@ -86,9 +114,9 @@ function MentorsFilter() {
                           </IconButton>
                         }
                       >
-                        <Avatar sx={{ height: '50px', width: '50px' }}>
+                        <WiggleAvatar sx={{ height: '50px', width: '50px' }}>
                           {`${user.first_name[0]}${user.last_name[0]}`}
-                        </Avatar>
+                        </WiggleAvatar>
                       </Badge>
                     </Tooltip>
                   ))}
@@ -138,19 +166,14 @@ function MentorsFilter() {
             <AvatarGroup max={5} sx={{mt: 1}}>
               {mentees && mentees.map((user, i) => (
                 <Tooltip key={i} title={`${user.first_name} ${user.last_name}`}>
-                  <Avatar sx={{ height: '50px', width: '50px' }}>
+                  <WiggleAvatar sx={{ height: '50px', width: '50px' }}>
                     {`${user.first_name[0]}${user.last_name[0]}`}
-                  </Avatar>
+                  </WiggleAvatar>
                 </Tooltip>
               ))}
             </AvatarGroup>
           }
         </Box>
-        <Grid item sx={{marginLeft: 'auto', p: 1, mt: 5}}>
-          <IconButton onClick={() => setEdit(!edit)}>
-            <EditIcon />
-          </IconButton>
-        </Grid>
       </Grid>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Choose a Mentor</DialogTitle>
@@ -158,15 +181,18 @@ function MentorsFilter() {
           component="nav"
           sx={{
             width: '100%',
-            maxWidth: 360,
+            maxWidth: 300,
+            maxHeight: 500,
             bgcolor: 'background.paper',
           }}
         >
           {allUsers && allUsers.map((user, i) => (
-              <ListItem button key={i} onClick={() => selectMentor(user)}>
+            <React.Fragment key={i}>
+              <ListItem button onClick={() => selectMentor(user)}>
                 <ListItemText primary={`${user.rank_grade} ${user.first_name} ${user.last_name}`} />
               </ListItem>
-
+              <Divider />
+            </React.Fragment>
           ))}
         </List>
       </Dialog>

@@ -6,18 +6,20 @@ describe("Top Bar", ()=>{
     // cy.get('button[aria-label="view settings"').click().wait(500)
     // cy.get('span[text="Logout"]').click().wait(100)
   })
-  xit("should show the Top Bar",()=>{
+  it("should show the Top Bar",()=>{
     cy.get("header").contains("Dashboard")
     cy.get("header").contains("Awards")
     cy.get("header").contains("Packages")
     cy.get("header").contains("ASATS")
   })
-  it("should rotue to select pages when not signed in",()=>{
-    cy.get
-    if(cy.get('button[aria-label="view settings]"').length > 0){
-      cy.get('button[aria-label="view settings]"').click().wait(500)
-      cy.get('ul li:last').click().wait(1000)
-    }
+  it("should route to select pages when not signed in",()=>{
+    cy.get('header').then(header => {
+      if(header.find('button[aria-label="view settings"]').length > 0){
+        cy.get('button[aria-label="view settings"]').click().wait(500)
+        cy.get('ul li:last').click().wait(1000)
+      }
+    })
+
     cy.get("header").contains("Dashboard").click().wait(1000)
     cy.get("main").contains("Welcome to ASATS!")
     cy.get("header").contains("Awards").click().wait(1000)
@@ -28,12 +30,14 @@ describe("Top Bar", ()=>{
     cy.get("main").contains("Welcome to ASATS!")
   })
   it("should rotue to all pages when signed in",()=>{
-    if(!cy.get('button[aria-label="view settings]"')){
-      cy.get('button[aria-label="log in"]').click().wait(500)
-      cy.get('input[name="email"]').type("Randy.Marsh@mail.com")
-      cy.get('input[name="password"]').type("password")
-      cy.get('button[type="submit"]').click().wait(1000)
-    }
+    cy.get('header').then(header => {
+      if(!header.find('button[aria-label="view settings"]').length > 0){
+        cy.get('button[aria-label="log in"]').click().wait(500)
+        cy.get('input[name="email"]').type("Randy.Marsh@mail.com")
+        cy.get('input[name="password"]').type("password")
+        cy.get('button[type="submit"]').click().wait(1000)
+      }
+    })
 
     cy.get("header").contains("Packages").click({force:true}).wait(1000)
     cy.get("main").contains("Packages")
