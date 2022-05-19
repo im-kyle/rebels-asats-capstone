@@ -12,7 +12,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const apiUrl = config[process.env.NODE_ENV || "development"].apiUrl;
+  const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
   const [firebaseUser, setFirebaseUser] = React.useState();
   const [loading, setLoading] = React.useState(true);
   const [apiPosted, setApiPosted] = React.useState(true);
