@@ -84,8 +84,9 @@ exports.seed = async function(knex) {
     {
       user_id: 9,
       award_id: 17,
-      award_text: '- Mentors/supervise/counsels 250 NPS Amn attending DoD\'s only Defense Information School (DINFOS) per yr \n' +
-                  '- Develops briefings for all assigned Airmen/enforces strict compliance w/established AF standards/regulations \n' +',
+      award_text: '- At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti \n' +
+                  '- At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti \n' +
+                  '- At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti',
       comments: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
       is_completed: false,
       category: "",
@@ -104,7 +105,7 @@ exports.seed = async function(knex) {
                   '- Briefed 6 CC calls/prepared 6 Airman of the Month boards; 32 NPS Airman recognized--motivated excellence \n' +
                   '- Acquired $5K in QoL items; eqpd rec room w/ games/sport tables-- improved morale/welfare of stdnts beyond reproach',
       comments: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
-      is_completed: true,
+      is_completed: false,
       category: "",
       award_period: "",
       rank_name: "",
@@ -117,13 +118,13 @@ exports.seed = async function(knex) {
     {
       user_id: 10,
       award_id: 4,
-      award_text: '- Prepared site for $85K resurfacing proj; mitigated flooding and erosion--improved training & safety conditions \n'+
-                  '- Overhauled 240 unserviceable kevlar helmets; installed new retention sys--saved $41.7K in replacement costs \n'+
+      award_text: '- Prepared site for $85K resurfacing proj; mitigated flooding and erosion--improved training & safety conditions \n' +
+                  '- Overhauled 240 unserviceable kevlar helmets; installed new retention sys--saved $41.7K in replacement costs \n' +
                   '- Supported "Ice Sheet" heat mitigation prgm; injuries 52% less than previous yr/saved two lives--promoted Sgt',
       comments: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
       is_completed: true,
       category: "",
-      award_period: "",
+      award_period: "1 JAN - 31 DEC 2021",
       rank_name: "",
       majcom_foa_dru: "",
       dafsc_duty_title: "",
