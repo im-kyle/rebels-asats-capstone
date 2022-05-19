@@ -10,6 +10,7 @@ function PackageEdit(){
   const navigate = useNavigate();
   const packageID = location.pathname.split("/")[2]
   const { allPackages, apiUser, commander, getPackages, menteesPackages, apiUrl } = useApi();
+  const [draftUser, setDraftUser] = useState(apiUser);
   const [draft, setDraft] = useState({
     title: "",
     award_text:"",
@@ -20,7 +21,40 @@ function PackageEdit(){
 
   useEffect(()=>{
     getPackages()
-  },[])
+
+  }, [])
+
+  useEffect(() => {
+    if (draft?.user_id) {
+      axios.get(`${apiUrl}/users/${draft.user_id}`)
+      .then(data => {
+        setDraftUser(data.data)
+      })
+    }
+  }, [draft])
+
+  useEffect(() => {
+    if (draftUser?.afsc_id && draftUser?.afsc_code === undefined) {
+      axios.get(`${apiUrl}/afscs/${draftUser.afsc_id}`)
+        .then(data => {
+          setDraftUser({...draftUser, afsc_code: data.data[0].code})
+        })
+    }
+    if (draftUser?.unit_id && draftUser?.unit_name === undefined) {
+      axios.get(`${apiUrl}/units/${draftUser.unit_id}`)
+        .then(data => {
+          setDraftUser({
+            ...draftUser,
+            unit_name: data.data[0].name,
+            office_symbol: data.data[0].office_symbol,
+            street_address: data.data[0].street_address,
+            base: data.data[0].base,
+            state: data.data[0].state,
+            zipcode: data.data[0].zipcode,
+          })
+        })
+    }
+  }, [draftUser])
 
   useEffect(()=>{
     if(apiUser !== null && allPackages.length !== 0){
@@ -77,13 +111,13 @@ function PackageEdit(){
   }
 
   return(
-    apiUser &&
+    apiUser ?
       <Box display='flex' justifyContent='center'>
-      <Grid container justifyContent='center' alignItems='center' maxWidth='1000px' spacing={2}>
-        <Grid item xs={12} align='center'>
-          <Typography variant='h5'>NOMINATION FOR AWARD</Typography>
-        </Grid >
-            <Grid item xs={6}>
+        <Grid container justifyContent='center' alignItems='center' maxWidth='1000px' spacing={2}>
+          <Grid item xs={12} align='center'>
+            <Typography variant='h5'>NOMINATION FOR AWARD</Typography>
+          </Grid >
+            <Grid item xs={8}>
               <TextField
                 fullWidth
                 disabled
@@ -92,17 +126,16 @@ function PackageEdit(){
                 value={draft.title}
               />
             </Grid>
-            {draft?.user_id === apiUser?.id &&
-            <Grid item xs={3}>
+            <Grid item xs={1.5}>
               <TextField
                 fullWidth
                 disabled
                 variant='outlined'
                 label="CATEGORY"
-                value={apiUser?.rank_category}
+                value={draftUser?.rank_category}
               />
-            </Grid>}
-            <Grid item xs={3}>
+            </Grid>
+            <Grid item xs={2.5}>
               <TextField
                 fullWidth
                 disabled = {draft?.user_id !== apiUser?.id}
@@ -112,14 +145,13 @@ function PackageEdit(){
                 onChange={(e) => setDraft({...draft, award_period: e.target.value})}
               />
             </Grid>
-            {draft?.user_id === apiUser?.id && <React.Fragment>
             <Grid item xs={7}>
               <TextField
                 fullWidth
                 disabled
                 variant='outlined'
                 label="RANK/NAME OF NOMINEE (First, Middle Initial, Last)"
-                value={`${apiUser?.rank_grade}/${apiUser?.first_name} ${apiUser?.middle_initial}. ${apiUser?.last_name}`}
+                value={`${draftUser?.rank_grade}/${draftUser?.first_name} ${draftUser?.middle_initial}. ${draftUser?.last_name}`}
               />
             </Grid>
             <Grid item xs={5}>
@@ -128,7 +160,7 @@ function PackageEdit(){
                 disabled
                 variant='outlined'
                 label="MAJCOM, FOA, OR DRU"
-                value={apiUser?.majcom_foa_dru}
+                value={draftUser?.majcom_foa_dru}
               />
             </Grid>
             <Grid item xs={6}>
@@ -137,7 +169,7 @@ function PackageEdit(){
                 disabled
                 variant='outlined'
                 label="DAFSC/DUTY TITLE"
-                value={`${apiUser?.afsc_code}/${apiUser?.duty_title}`}
+                value={`${draftUser?.afsc_code}/${draftUser?.duty_title}`}
               />
             </Grid>
             <Grid item xs={6}>
@@ -146,7 +178,7 @@ function PackageEdit(){
                 disabled
                 variant='outlined'
                 label="NOMINEE's TELEPHONE (DSN & Commercial)"
-                value={`DSN: ${apiUser?.phone_dsn} & COMM: ${apiUser?.phone_comm}`}
+                value={`DSN: ${draftUser?.phone_dsn} & COMM: ${draftUser?.phone_comm}`}
               />
             </Grid>
             <Grid item xs={12}>
@@ -155,7 +187,7 @@ function PackageEdit(){
                 disabled
                 variant='outlined'
                 label="UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE"
-                value={`${apiUser?.unit_name}/${apiUser?.office_symbol}/${apiUser?.street_address}/${apiUser?.base}/${apiUser?.state}/${apiUser?.zipcode}`}
+                value={`${draftUser?.unit_name}/${draftUser?.office_symbol}/${draftUser?.street_address}/${draftUser?.base}/${draftUser?.state}/${draftUser?.zipcode}`}
               />
             </Grid>
             {commander &&
@@ -169,7 +201,6 @@ function PackageEdit(){
                 />
               </Grid>
             }
-            </React.Fragment>}
             {draft?.user_id === apiUser?.id ?
             <React.Fragment>
             <Grid item xs={12}>
@@ -183,7 +214,7 @@ function PackageEdit(){
               />
               <React.Fragment>
               <Grid item xs={12}>
-                <Typography align='center' variant='h5' color='primary'>{'Your Mentor\'s Comments'}</Typography>
+                <Typography align='center' variant='h5' color='primary' sx={{mt: 2}}>{'Your Mentor\'s Comments'}</Typography>
                 <Typography textAlign="left" variant='paragraph' color='primary'>{draft.comments}</Typography>
               </Grid>
               </React.Fragment>
@@ -192,8 +223,6 @@ function PackageEdit(){
           :
           <React.Fragment>
             <Grid item xs={12} >
-              <Typography align='center' variant='h5' color='primary'>SPECIFIC ACCOMPLISHMENTS</Typography>
-              {/* <Typography color='secondary' style={{whiteSpace: 'pre-line'}}>{draft.award_text}</Typography> */}
               <TextField
                 fullWidth
                 multiline
@@ -204,31 +233,48 @@ function PackageEdit(){
                 onChange={(e) => setDraft({...draft, award_text: e.target.value})}
               />
             </Grid>
+            <Typography align='center' variant='h5' color='primary' sx={{mt: 2}}>{'Your Comments'}</Typography>
             <Grid item xs={12}>
               <TextField
                 fullWidth
                 multiline
                 variant='outlined'
-                label="Comments"
                 value={draft.comments}
                 onChange={(e) => setDraft({...draft, comments: e.target.value})}
               />
             </Grid>
           </React.Fragment>
         }
-        <Grid item xs={3}>
-        {draft?.user_id === apiUser?.id &&<FormControlLabel label="Complete"  control={
-          <Checkbox checked={draft.is_completed} onChange={(e)=> setDraft({...draft, is_completed: e.target.checked})}/>}
-        />}
+        <Grid item xs={12} align='center'>
+          {draft?.user_id === apiUser?.id &&
+            <FormControlLabel
+              label="Complete"
+              control={
+                <Checkbox
+                  checked={draft.is_completed}
+                  onChange={(e)=> setDraft({...draft, is_completed: e.target.checked})}
+                />}
+            />
+          }
         </Grid>
-        <Grid item xs={3}>
-          <Button variant='contained' onClick={updatePackage}>Update</Button>
-        </Grid>
-        {draft?.user_id === apiUser?.id && <Grid item xs={3}>
-          <Button variant='contained' color="error" onClick={deletePackage}>Delete</Button>
-        </Grid>}
+        {draft?.user_id === apiUser?.id ?
+          <React.Fragment>
+            <Grid item xs={6} align='center'>
+              <Button variant='contained' onClick={updatePackage}>Update</Button>
+            </Grid>
+            <Grid item xs={6} align='center'>
+              <Button variant='contained' color="error" onClick={deletePackage}>Delete</Button>
+            </Grid>
+          </React.Fragment>
+          :
+          <Grid item xs={12} align='center'>
+            <Button variant='contained' onClick={updatePackage}>Update</Button>
+          </Grid>
+        }
       </Grid>
     </Box>
+    :
+    <React.Fragment />
   )
 }
 

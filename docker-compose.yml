@@ -7,7 +7,7 @@ services:
   capstone-db:
     image: postgres
     restart: always
-    environment: 
+    environment:
      - DATABASE_HOST=127.0.0.1
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=docker
@@ -28,8 +28,8 @@ services:
     depends_on:
       - capstone-db
     ports:
-      - '8080:8082'
-    environment: 
+      - '8080:8080'
+    environment:
       - NODE_ENV=development
       - DATABASE_HOST=capstone-db
       - POSTGRES_USER=postgres
@@ -46,7 +46,7 @@ services:
     depends_on:
       - capstone-api
     ports:
-      - '3001:3000'
+      - '3000:3000'
     volumes:
       - type: bind
         source: ./ui/src

@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../dbConnection');
 
-
-
-
-
 router
   .get('/',(req, res) => {
     const fb_uid = req.query.fb_uid
@@ -31,7 +27,6 @@ router
           delete body.code
           res.status(200).json([body])
         })
-
       })
       .catch(err => {
         console.error(err);

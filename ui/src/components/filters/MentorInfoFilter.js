@@ -37,10 +37,10 @@ const WiggleAvatar = styled(Avatar) ({
       transform: 'rotate(-1deg)'
     },
     '100%': {
-      transform: 'rotate(2deg)'
+      transform: 'rotate(4deg)'
     },
   },
-  animation: "wiggle 1s infinite ease",
+  animation: "wiggle 500ms infinite ease",
 });
 
 function MentorsFilter() {
