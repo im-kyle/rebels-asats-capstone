@@ -20,4 +20,5 @@ exports.seed = async function(knex) {
     {fb_uid: 'LIAwS2MosCWWs4QV6S6Css7C8tZ2', first_name: 'John', last_name: 'Doe', middle_initial: 'H', rank_grade: 'Sgt', rank_category: 'JE', afsc_id: 7, duty_title: 'Military Training Leader', majcom_foa_dru: 'DEL 13', phone_dsn: '555-5555', phone_comm: '555-555-5555', unit_id: 4, is_admin: true},
     {fb_uid: 'H0UvNECPG7Pxtq3j6sYb3Vss1oK2', first_name: 'Dani', last_name: 'Fisher', middle_initial: 'Q', rank_grade: '1Lt', rank_category: 'CGO', afsc_id: 10, duty_title: 'Pre-Cadet Assigned', majcom_foa_dru: 'DEL 13', phone_dsn: '555-5555', phone_comm: '555-555-5555', unit_id: 4, is_admin: true}
   ]);
+  await knex('units').where("id", "=", 4).update({cc_user_id: 7})
 };
