@@ -12,6 +12,14 @@ exports.up = function(knex) {
     table.text('award_text');
     table.text('comments');
     table.boolean('is_completed');
+    table.text('category');
+    table.text('award_period');
+    table.text('rank_name');
+    table.text('majcom_foa_dru');
+    table.text('dafsc_duty_title');
+    table.text('phone_numbers');
+    table.text('unit_office');
+    table.text('commander_info');
   })
 };
 

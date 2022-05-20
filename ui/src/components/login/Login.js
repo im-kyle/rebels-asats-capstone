@@ -24,6 +24,7 @@ const validationSchema = yup.object({
 const Login = () => {
   const { login } = useAuth();
   const [error, setError] = React.useState('');
+  const inputRef = React.useRef();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -42,7 +43,7 @@ const Login = () => {
         setError('');
         navigate('/dashboard');
       } catch (error) {
-        console.log(error)
+        console.error(error)
         setError('Incorrect login credentials.');
       }
     },
@@ -57,15 +58,21 @@ const Login = () => {
     }}>
       <form onSubmit={formik.handleSubmit}>
         <TextField
+          autoFocus
           fullWidth
           id="email"
           name="email"
           label="Email"
+          type='email'
           value={formik.values.email}
           onChange={formik.handleChange}
+          onKeyUp={e => {
+            if (e.code === 'Tab') {
+              inputRef.current.focus();
+            }
+          }}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
-          inputProps={{ tabIndex: "0" }}
         />
         <TextField
           fullWidth
@@ -74,6 +81,7 @@ const Login = () => {
           label="Password"
           type="password"
           value={formik.values.password}
+          inputRef={inputRef}
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}

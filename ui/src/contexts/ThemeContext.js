@@ -18,12 +18,28 @@ export function ColorModeThemeProvider({ children }) {
   const theme = React.useMemo(() => createTheme({
     palette: {
       mode,
+      primary: {
+        main: mode === 'light' ? '#0F044C' : '#787A91',
+      },
+      secondary: {
+        main: mode === 'light' ? '#141E61' : '#73777B',
+      },
+      background: {
+        default: mode === 'light' ? '#fff' : '#0f041b',
+      }
     },
+
     typography: {
       overline: {
         fontFamily: [
           'Black Ops One',
           'cursive',
+        ].join(','),
+      },
+      body2: {
+        fontFamily: [
+          'Source Code Pro',
+          'monospace',
         ].join(','),
       },
     },

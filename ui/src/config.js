@@ -8,7 +8,7 @@ const config = {
   },
 
   production: {
-    apiUrl: "https://rebels-asats-api.herokuapp.com/",
+    apiUrl: "https://rebels-asats-api.herokuapp.com",
     auth: (cb) => {
       return cb()
     }

@@ -5,38 +5,45 @@ import MyPackagesFilter from '../filters/MyPackagesFilter';
 import PackagesReviewFilter from '../filters/PackagesReviewFilter';
 import UserInfoFilter from '../filters/UserInfoFilter';
 import MentorInfoFilter from '../filters/MentorInfoFilter';
+import EqualOpportunityFilter from '../filters/EqualOpportunityFilter';
 
 const pageData = {
   '': {
-    hasSideBar: false,
+    sideBar: false,
     filters: [
       <React.Fragment key={0}/>,
     ]
   },
   'dashboard': {
-    hasSideBar: true,
+    sideBar: true,
     filters: [
       <UserInfoFilter key={0} />,
       <MentorInfoFilter key={1} />,
     ]
   },
   'awards': {
-    hasSideBar: true,
+    sideBar: true,
     filters: [
       <RankFilter key={0} />,
       <AfscFilter key={1} />,
-      // <DemographicsFilter key={2} />
+      <EqualOpportunityFilter key={2} />
     ]
   },
   'packages': {
-    hasSideBar: true,
+    sideBar: true,
     filters: [
       <MyPackagesFilter key={0}/>,
       <PackagesReviewFilter key={1}/>,
     ]
   },
   'edit-profile': {
-    hasSideBar: false,
+    sideBar: false,
+    filters: [
+      <React.Fragment key={0}/>,
+    ]
+  },
+  'edit-package': {
+    sideBar: false,
     filters: [
       <React.Fragment key={0}/>,
     ]

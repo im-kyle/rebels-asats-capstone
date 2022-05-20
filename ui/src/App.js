@@ -25,7 +25,7 @@ function App() {
 
   React.useEffect(() => {
     const path = location.pathname.split('/')[1];
-    setHasSideBar(pageData[path].hasSideBar);
+    setHasSideBar(pageData[path].sideBar);
     setFilters(pageData[path].filters);
   }, [location]);
 
@@ -35,7 +35,7 @@ function App() {
       <Route path='/dashboard' element={<ProtectedRoute user={firebaseUser}><Dashboard /></ProtectedRoute>} />
       <Route path='/awards/*' element={<Awards />} />
       <Route path='/packages' element={<ProtectedRoute user={firebaseUser}><Packages /></ProtectedRoute>} />
-      <Route path='/packages/:packageID' element={<ProtectedRoute user={firebaseUser}><PackageEdit /></ProtectedRoute>} />
+      <Route path='/edit-package/:packageID' element={<ProtectedRoute user={firebaseUser}><PackageEdit /></ProtectedRoute>} />
       <Route path='/edit-profile' element={<ProtectedRoute user={firebaseUser}><EditProfile /></ProtectedRoute>}/>
     </Routes>
   )

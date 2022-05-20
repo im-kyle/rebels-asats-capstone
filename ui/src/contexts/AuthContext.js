@@ -12,7 +12,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const apiUrl = config[process.env.NODE_ENV || "development"].apiUrl;
+  const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
   const [firebaseUser, setFirebaseUser] = React.useState();
   const [loading, setLoading] = React.useState(true);
   const [apiPosted, setApiPosted] = React.useState(true);
@@ -53,9 +53,9 @@ export function AuthProvider({ children }) {
   //   return currentUser.updatePassword(password);
   // }
 
-  // function updatePhoto(url) {
-  //   return currentUser.updateProfile({photoURL: url});
-  // }
+  function updatePhoto(url) {
+    return firebaseUser.updateProfile({photoURL: url});
+  }
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -75,7 +75,7 @@ export function AuthProvider({ children }) {
     // resetPassword,
     // updateEmail,
     // updatePassword,
-    // updatePhoto,
+    updatePhoto,
   };
 
   return (

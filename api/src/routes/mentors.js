@@ -4,12 +4,25 @@ const db = require('../dbConnection');
 
 router
   .get('/:id', (request, response) => {
-    db.select('*').from('users_mentors').where('mentor_id', '=', request.params.id)
+    db.select('users_mentors.user_id', "users_mentors.mentor_id", "users.first_name", "users.last_name").from('users_mentors')
+      .where('mentor_id', '=', request.params.id)
+      .leftJoin("users", "users.id", "=", "user_id")
+
       .then(data => {
         response.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
+        throw err;
+      });
+  })
+  .get('/', (request, response) => {
+    db.select("*").from('users_mentors')
+      .then(data => {
+        response.status(200).json(data);
+      })
+      .catch(err => {
+        console.error(err);
         throw err;
       });
   })
@@ -19,7 +32,7 @@ router
         response.status(201).json(data[0]);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         throw err;
       });
   })
@@ -29,17 +42,17 @@ router
       response.status(201).json(data[0]);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
   })
   .delete('/', (request, response) => {
-    db('users_mentors').where('user_id', '=', request.query.user).andWhere('mentor_id', '=', request.query.mentor).delete('*')
+    db('users_mentors').where('user_id', '=', request.query.user).andWhere('mentor_id', '=', request.query.mentor).del()
     .then(data => {
       response.status(200).json(data[0]);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       throw err;
     });
   })
